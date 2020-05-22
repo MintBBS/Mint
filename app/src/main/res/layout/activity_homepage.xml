@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Financial Transaction"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textColor="#000"
+            android:gravity="center">
+
+        </TextView>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginRight="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="395dp"
+            android:layout_height="157dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/Aeps"
+                android:paddingRight="2dp"
+                android:paddingLeft="3dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="165dp"
+                android:layout_height="146dp"
+                android:background="@drawable/border"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewAeps"
+                    android:layout_width="120dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/bank" />
+
+                <TextView
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:text="AEPS"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rupay"
+                android:paddingTop="10dp"
+                android:layout_width="160dp"
+                android:layout_height="146dp"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical"
+                android:background="@drawable/border"
+                android:layout_marginRight="20dp">
+
+                <ImageView
+                    android:id="@+id/imageViewRupay"
+                    android:layout_width="120dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/debit_card" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Rupay"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Non-Financial Transaction"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="#000"
+                android:gravity="center">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="390dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/accountopening"
+                android:layout_width="112dp"
+                android:background="@drawable/border"
+                android:layout_height="140dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewAcct"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/accounting" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="A/C Opening"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="112dp"
+                android:layout_height="140dp"
+                android:background="@drawable/border"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewScheme"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/savings" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center"
+                    android:text="Scheme"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="113dp"
+                android:layout_height="140dp"
+                android:background="@drawable/border"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewMobile"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/app" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Mobile Seeding"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agent Transaction"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="#000"
+                android:gravity="center">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="390dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="112dp"
+                android:background="@drawable/border"
+                android:layout_height="140dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewAgent"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/cost" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Agent Balance"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="112dp"
+                android:background="@drawable/border"
+                android:layout_height="140dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewEod"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/strategic" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="EOD Report"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="113dp"
+                android:layout_height="140dp"
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
+                <ImageView
+                    android:id="@+id/imageViewRrnStatus"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/rrn_status" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="RRN Status"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewHomepageAgentId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="220dp"
+            android:text="TextView" />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

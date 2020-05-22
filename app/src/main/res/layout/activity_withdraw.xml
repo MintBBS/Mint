@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WithdrawActivity">
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="407dp"
+        android:layout_height="128dp"
+        android:background="#d0d0d0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <EditText
+        android:id="@+id/editTextWithdrawAmount"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter Amount"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextwithdrawAadharNo"
+        app:layout_constraintVertical_bias="0.027" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026"
+        app:srcCompat="@drawable/money" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="242dp"
+        android:layout_height="60dp"
+        android:text="AEPS Withdraw"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058" />
+
+
+    <Spinner
+        android:id="@+id/withdrawSpinner"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <EditText
+        android:id="@+id/editTextwithdrawAadharNo"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter Aadhar Number"
+        android:maxLength="12"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/withdrawSpinner"
+        app:layout_constraintVertical_bias="0.018" />
+
+    <EditText
+        android:id="@+id/editTextWithdrawAccountNo"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Entre Account Number"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWithdrawAmount"
+        app:layout_constraintVertical_bias="0.033" />
+
+    <Button
+        android:id="@+id/buttonWithdraw"
+        android:layout_width="124dp"
+        android:layout_height="53dp"
+        android:background="@drawable/button"
+        android:text="Withdraw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWithdrawFingerprint"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <ImageButton
+        android:id="@+id/imageButtonWithdrawFingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/edittext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWithdraw"
+        app:layout_constraintVertical_bias="0.172"
+        app:srcCompat="@drawable/fingerprint" />
+
+    <TextView
+        android:id="@+id/textViewWithdrawFingerprint"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:paddingTop="16dp"
+        android:textSize="17dp"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWithdrawAccountNo"
+        app:layout_constraintVertical_bias="0.042" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

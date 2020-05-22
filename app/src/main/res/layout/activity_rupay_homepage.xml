@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RupayHomepageActivity">
+
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="170dp"
+        android:layout_height="158dp"
+        android:background="@drawable/edittext"
+        android:drawableTop="@drawable/withdraw"
+        android:onClick="getWithdrawPage"
+        android:text="Withdraw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="170dp"
+        android:layout_height="158dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/edittext"
+        android:drawableTop="@drawable/balance"
+        android:onClick="getBalanceEnquiryPage"
+        android:text="Balance Enquiry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="349dp"
+        android:layout_height="145dp"
+        android:layout_marginLeft="3dp"
+        android:background="@drawable/edittext"
+        android:drawableTop="@drawable/ic_statement"
+        android:onClick="getMiniStatementPage"
+        android:text="Mini Statement"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6"
+        app:layout_constraintVertical_bias="0.039" />
+
+    <LinearLayout
+        android:layout_width="405dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7"
+        app:layout_constraintVertical_bias="0.121">
+
+        <TextView
+            android:id="@+id/textViewRupayHomepageAgentId"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:textAlignment="textEnd"
+            android:paddingLeft="50dp"
+            android:text="TextView"
+            android:textColor="#1335F4"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "787680333689",
+    "firebase_url": "https://mint-b5aac.firebaseio.com",
+    "project_id": "mint-b5aac",
+    "storage_bucket": "mint-b5aac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787680333689:android:bd72d74e204e561f30e9a8",
+        "android_client_info": {
+          "package_name": "com.example.mint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787680333689-m6m672gmenf407q4j6pfb82plo5kon44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf_P0dKFk2ca-0DsfZcdnw9fKDS_99xGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787680333689-m6m672gmenf407q4j6pfb82plo5kon44.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

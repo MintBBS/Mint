@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mint">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".RupayWithdrawOutput"></activity>
+        <activity android:name=".RupayWithdrawActivity" />
+        <activity android:name=".RupayMiniStatementOutput" />
+        <activity android:name=".RupayMiniStatementActivity" />
+        <activity android:name=".RupayBalanceEnquiryOutput" />
+        <activity android:name=".RupayBalanceEnquiryActivity" />
+        <activity android:name=".RupayHomepageActivity" />
+        <activity android:name=".ForgetPasswordOtpActivity" />
+        <activity android:name=".Pmjjbysts" />
+        <activity android:name=".Apysts" />
+        <activity android:name=".RdData" />
+        <activity android:name=".PmsbyData" />
+        <activity android:name=".PmjjbyData" />
+        <activity android:name=".ApyData" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".SchemeHomepageActivity" />
+        <activity android:name=".EodOutput" />
+        <activity android:name=".EodActivity" />
+        <activity android:name=".RrnOutput" />
+        <activity android:name=".RrnStatusActivity" />
+        <activity android:name=".AgentBalanceOutput" />
+        <activity android:name=".AgentBalanceActivity" />
+        <activity android:name=".MySessionActivity" />
+        <activity android:name=".HomepageActivity" />
+        <activity
+            android:name=".OtpActivity"
+            android:label="OTP" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="unspecified">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AEPSHomepageActivity"
+            android:label="AEPSHomepageActivity" />
+        <activity
+            android:name=".DepositOutputActivity"
+            android:label="AEPS Deposit"
+            android:parentActivityName=".DepositActivity" />
+        <activity
+            android:name=".DepositActivity"
+            android:label="AEPS Deposit" />
+        <activity
+            android:name=".WithdrawOutputActivity"
+            android:label="AEPS Withdraw"
+            android:parentActivityName=".WithdrawActivity" />
+        <activity
+            android:name=".WithdrawActivity"
+            android:label="AEPS Withdraw" />
+        <activity
+            android:name=".BalanceEnquiryActivity"
+            android:label="Balance Enquiry" />
+        <activity
+            android:name=".BalanceEnquiryOutput"
+            android:label="Balance Enquiry"
+            android:parentActivityName=".BalanceEnquiryActivity" />
+        <activity
+            android:name=".FundTransferOutputActivity"
+            android:label="Funds Transfer"
+            android:parentActivityName=".FundstransferActivity" />
+        <activity
+            android:name=".FundstransferActivity"
+            android:label="Funds Transfer" />
+        <activity
+            android:name=".MiniStatementOutput"
+            android:label="Mini Statement"
+            android:parentActivityName=".MinistatementActivity" />
+        <activity
+            android:name=".MinistatementActivity"
+            android:label="Mini Statement" />
+    </application>
+
+</manifest>

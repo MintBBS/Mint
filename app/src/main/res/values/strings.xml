@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Mint</string>
+
+    <string name="apyaadhar_number">Enter Valid 12 digit Aadhar Number</string>
+    <string name="apyaccount_number">Enter Valid 10 digit Account Number</string>
+    <string name="apynominee_aadhar">Enter Valid 12 digit Nominee Aadhar Number</string>
+    <string name="apynominee_name">Enter Valid Nominee Name</string>
+    <string name="apynominee_relation">Enter Valid Nominee Relation</string>
+    <string name="apyamount">Enter Valid Amount</string>
+    <string name="apypension_amount">Enter Valid Amount (max 9999)</string>
+    <string name="apydateofbirth">Enter Valid Date Of Birth</string>
+
+    <string name="pmsbyaadhar_number">Enter Valid 12 digit Aadhar Number</string>
+    <string name="pmsbyaccount_number">Enter Valid 10 digit Account Number</string>
+    <string name="pmsbynominee_aadhar">Enter Valid  digit Nominee Aadhar Number</string>
+    <string name="pmsbynominee_name">Enter Valid Nominee Name</string>
+    <string name="pmsbynominee_relation">Enter Valid Nominee Relation</string>
+    <string name="pmsbydateofbirth">dd-mm-yyyy</string>
+
+
+    <string name="pmjjbyaadhar_number">Enter Valid 12 digit Aadhar Number</string>
+    <string name="pmjjbyaccount_number">Enter Valid 10 digit Account Number</string>
+    <string name="pmjjbynominee_aadhar">Enter Valid  digit Nominee Aadhar Number</string>
+    <string name="pmjjbynominee_name">Enter Valid Nominee Name</string>
+    <string name="pmjjbynominee_relation">Enter Valid Nominee Relation</string>
+    <string name="pmjjbydateofbirth">dd-mm-yyyy</string>
+
+
+    <string name="rdaadhar_number">Enter Valid 12 digit Aadhar Number</string>
+    <string name="rdaccount_number">Enter Valid 10 digit Account Number</string>
+    <string name="rdnominee_aadhar">Enter Valid  digit Nominee Aadhar Number</string>
+    <string name="rdnominee_name">Enter Valid Nominee Name</string>
+    <string name="rdnominee_relation">Enter Valid Nominee Relation</string>
+    <string name="rdamount">Enter Valid Amount</string>
+    <string name="rdinstallment_amount">Enter Valid Amount</string>
+    <string name="rddateofbirth">Enter Valid Date Of Birth</string>
+    <string name="home">HOME</string>
+
+
+    <string name="card_number">Enter a Valid 16 digit Card Number</string>
+    <string name="holder_name">Enter a Valid Holder Number</string>
+    <string name="cvv">Enter a Valid 3 digit CVV</string>
+    <string name="expiredate">Enter a Valid Expire Date in format(mm-yyyy)</string>
+    <string name="pin">Enter a Valid 4 digit pin number</string>
+    <string name="amount">Enter a Valid amount between 100 to 10000</string>
+
+</resources>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PmsbyData">
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="407dp"
+        android:layout_height="128dp"
+        android:background="#d0d0d0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026"
+        app:srcCompat="@drawable/pmsby" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="257dp"
+        android:layout_height="54dp"
+        android:text="PMSBY  Scheme"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.062" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:scrollbarStyle="insideOverlay"
+        android:layout_width="391dp"
+        android:layout_height="293dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.291">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/pmsbyaadhar_number"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:hint="Enter Aadhar Number"
+                android:inputType="number"
+                android:maxLength="12"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.239" />
+
+            <EditText
+                android:id="@+id/pmsbyaccount_number"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:hint="Enter Account Number"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pmsbyaadhar_number"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/pmsbydateofbirth"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:hint="Enter Date of Birth(DD-MM-YYYY)"
+                android:inputType="date"
+                android:maxLength="10"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pmsbyaccount_number"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/pmsbynominee_aadhar"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:hint="Enter Nominee Aadhar"
+                android:inputType="number"
+                android:maxLength="12"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pmsbydateofbirth"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/pmsbynominee_name"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:hint="Enter Nominee Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pmsbynominee_aadhar"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="20dp"
+                android:text="Select Nominee Relation"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.477"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/apynominee_name"
+                app:layout_constraintVertical_bias="0.033" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.456"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="307dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:paddingLeft="20dp"
+                android:text="             AMOUNT  Rs. 12"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pmsbynominee_relation"
+                app:layout_constraintVertical_bias="0.172" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonFundTransfer"
+        android:layout_width="124dp"
+        android:layout_height="53dp"
+        android:background="@drawable/button"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
+        app:layout_constraintVertical_bias="0.129" />
+
+    <ImageButton
+        android:id="@+id/imageButtonFundTransferFingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFundTransfer"
+        app:layout_constraintVertical_bias="0.144"
+        app:srcCompat="@drawable/fingerprint" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

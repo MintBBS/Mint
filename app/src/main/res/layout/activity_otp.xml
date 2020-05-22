@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OTPActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="204dp"
+        android:layout_height="39dp"
+        android:background="#00000000"
+        android:shadowColor="#0A0A0A"
+        android:text="OTP Confirmation"
+        android:textColor="#000"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.106" />
+
+    <Button
+        android:id="@+id/buttonOtp"
+        android:layout_width="143dp"
+        android:layout_height="59dp"
+        android:background="@drawable/button"
+        android:onClick="getHomepage"
+        android:text="VERIFY"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOtp"
+        app:layout_constraintVertical_bias="0.097" />
+
+    <EditText
+        android:id="@+id/editTextOtp"
+        android:layout_width="350dp"
+        android:layout_height="59dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter OTP Here"
+        android:inputType="number"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <LinearLayout
+        android:layout_width="405dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7"
+        app:layout_constraintVertical_bias="0.121">
+
+        <TextView
+            android:id="@+id/textViewAepsOtpPageAgentId"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:textAlignment="viewEnd"
+            android:paddingLeft="50dp"
+
+            android:visibility="invisible"
+
+            android:text="TextView"
+            android:textColor="#1335F4"
+            android:textSize="15dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

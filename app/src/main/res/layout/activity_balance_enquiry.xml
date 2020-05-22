@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BalanceEnquiryActivity">
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="407dp"
+        android:layout_height="128dp"
+        android:background="#d0d0d0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025"
+        app:srcCompat="@drawable/balance_enquiry" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="243dp"
+        android:layout_height="45dp"
+        android:text="Balance Enquiry"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053" />
+
+    <Spinner
+        android:id="@+id/balanceEnquirySpinner"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <EditText
+        android:id="@+id/editTextBalanceEnquiryAadharNo"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter Aadhar Number"
+        android:maxLength="12"
+        android:inputType="numberPassword"
+        android:keepScreenOn="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balanceEnquirySpinner"
+        app:layout_constraintVertical_bias="0.018" />
+
+    <EditText
+        android:id="@+id/editTextBalanceEnquiryAccountNo"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter Account Number"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBalanceEnquiryAadharNo"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <Button
+        android:id="@+id/balaceEnquiryButton"
+        android:layout_width="124dp"
+        android:layout_height="53dp"
+        android:background="@drawable/button"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBalanceEnquiryFingerprint"
+        app:layout_constraintVertical_bias="0.064" />
+
+    <ImageButton
+        android:id="@+id/imageButtonBalanceEnquiryFingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balaceEnquiryButton"
+        app:layout_constraintVertical_bias="0.097"
+        app:srcCompat="@drawable/fingerprint" />
+
+    <TextView
+        android:id="@+id/textViewBalanceEnquiryFingerprint"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:paddingTop="16dp"
+        android:textColor="#000"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBalanceEnquiryAccountNo"
+        app:layout_constraintVertical_bias="0.027" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

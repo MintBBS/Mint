@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RupayWithdrawActivity">
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="407dp"
+        android:layout_height="128dp"
+        android:background="#d0d0d0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <EditText
+        android:id="@+id/editTextRupayWithdrawCvv"
+        android:layout_width="100dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter CVV"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRupayWithdrawCardHolderName"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <EditText
+        android:id="@+id/editTextRupayWithdrawExpireDate"
+        android:layout_width="158dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="ExpireDate mm/yyyy"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintStart_toEndOf="@+id/editTextRupayWithdrawCvv"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRupayWithdrawCardHolderName"
+        app:layout_constraintVertical_bias="0.028" />
+
+    <EditText
+        android:id="@+id/editTextRupayWithdrawCardHolderName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Card holder name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRupayWithdrawCardNo"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <EditText
+        android:id="@+id/editTextRupayWithdrawPin"
+        android:layout_width="300dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter PIN"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRupayWithdrawExpireDate"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <EditText
+        android:id="@+id/editTextRupayWithdrawCardNo"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter Customer Card No"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRupaywithdrawAgentId"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="130dp"
+        android:layout_height="104dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026"
+        app:srcCompat="@drawable/money" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="242dp"
+        android:layout_height="60dp"
+        android:text="Rupay Withdraw"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <EditText
+        android:id="@+id/editTextRupaywithdrawAgentId"
+        android:layout_width="300dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Enter Agent Id"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <EditText
+        android:id="@+id/editTextRupayWithdrawAmount"
+        android:layout_width="300dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Entre Amount"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRupayWithdrawPin"
+        app:layout_constraintVertical_bias="0.048" />
+
+    <Button
+        android:id="@+id/buttonRupayWithdraw"
+        android:layout_width="124dp"
+        android:layout_height="53dp"
+        android:background="@drawable/button"
+        android:text="Withdraw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRupayWithdrawAmount"
+        app:layout_constraintVertical_bias="0.151" />
+</androidx.constraintlayout.widget.ConstraintLayout>
