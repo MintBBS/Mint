@@ -134,12 +134,12 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                if(fingerprintString.getText ().toString ().isEmpty ()){
-                    Toast.makeText (MainActivity.this, "fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
-                }
-                else if(password.getText ().toString ().isEmpty ()) {
-                    password.setError ("Please Enter Correct Password");
+                if(password.getText ().toString ().isEmpty ()) {
+                    password.setError ("Please Fill the Password");
                     password.requestFocus ();
+                }
+                else if(fingerprintString.getText ().toString ().isEmpty ()){
+                    Toast.makeText (MainActivity.this, "fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
                 }
                 else {
                     validateUser ();

@@ -19,8 +19,8 @@ public class RupayHomepageActivity extends AppCompatActivity {
         setTitle ("Rupay");
 
         Intent intent = getIntent ();
-        String aepsAgentId= intent.getStringExtra ("homepageAgentId");
-        rupayHomepageAgentId.setText (aepsAgentId);
+        String rupayAgentId= intent.getStringExtra ("homepageAgentId");
+        rupayHomepageAgentId.setText (rupayAgentId);
     }
 
     public void getBalanceEnquiryPage(View view){
@@ -30,6 +30,7 @@ public class RupayHomepageActivity extends AppCompatActivity {
 
     public void getWithdrawPage(View view){
         Intent intent = new Intent (this, RupayWithdrawActivity.class);
+        intent.putExtra ("rupayAgentId", rupayHomepageAgentId.getText ().toString ());
         startActivity (intent);
     }
 

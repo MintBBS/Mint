@@ -53,6 +53,10 @@ public class RupayWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = getIntent ();
+                String agentId = intent.getStringExtra ("rupayAgentId");
+                withdrawAgentId.setText (agentId);
+
                 if(v==buttonWithdraw) {
                     submitform();
 
@@ -68,12 +72,6 @@ public class RupayWithdrawActivity extends AppCompatActivity {
     }
 
     public void transferFund() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.6:8080/MintApi2/")
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        WithdrawApi withdrawApi = retrofit.create(WithdrawApi.class);
         String agentId = withdrawAgentId.getText().toString();
         String cardNumber = WithdrawCardNumber.getText().toString();
         String cardHolderName=WithdrawHolderName.getText().toString();
@@ -81,6 +79,7 @@ public class RupayWithdrawActivity extends AppCompatActivity {
         String expireDate=WithdrawExpireDate.getText().toString();
         String pin = withdrawPin.getText().toString();
         String amount = withdrawAmount.getText().toString();
+
         Intent intent = new Intent(this, RupayWithdrawOutput.class);
         intent.putExtra("withdrawAgentId", agentId);
         intent.putExtra("WithdrawCardNumber", cardNumber);

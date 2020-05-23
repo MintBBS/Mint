@@ -35,7 +35,6 @@ public class RupayWithdrawOutput extends AppCompatActivity {
     TextView transactionType;
     TextView withdrawRrn;
     TextView withdrawAmount;
-    TextView withdrawRemark;
     String agentId;
     String cardNumber;
     String cardHolderName;
@@ -52,14 +51,13 @@ public class RupayWithdrawOutput extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_rupay_withdraw_output);
 
-        printbutton = findViewById(R.id.buttonPrint);
+        printbutton = findViewById(R.id.buttonPrintRupayWithdraw);
         withdrawAccountNumber = (TextView) findViewById(R.id.textViewRupayWithdrawAccountNumber);
         withdrawRrn = (TextView) findViewById(R.id.textViewRupayWithdrawRRN);
         transactionType = (TextView) findViewById(R.id.textViewRupayWithdrawTransactionType);
         withdrawAmount = (TextView) findViewById(R.id.textViewRupayWithdrawAmount);
-        withdrawRemark = (TextView) findViewById(R.id.textViewWithdrawRemark);
         withdrawDate = (TextView) findViewById(R.id.textViewWithdrawDate);
-        withdrawTransactionStatus = (TextView) findViewById(R.id.textViewWithdrawTransactionStatus);
+        withdrawTransactionStatus = (TextView) findViewById(R.id.transactionStatusRupayWithdraw);
 
 
         Intent intent = getIntent();
@@ -70,6 +68,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
         expireDate=intent.getStringExtra("WithdrawExpireDate");
         pin = intent.getStringExtra("withdrawPin");
         amount = intent.getStringExtra("withdrawAmount");
+
         getReport();
         printbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +103,6 @@ public class RupayWithdrawOutput extends AppCompatActivity {
             String pdfText1 = withdrawRrn.getText ().toString ();
             String pdfText2 = transactionType.getText ().toString ();
             String pdfText3 = withdrawAmount.getText().toString();
-            String pdfText4 = withdrawRemark.getText().toString();
             String pdfText5 = withdrawDate.getText().toString();
             String pdftext6 =  withdrawTransactionStatus.getText().toString();
 
@@ -114,9 +112,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
             mDoc.add (new Paragraph ("Rrn Number : " + pdfText1));
             mDoc.add (new Paragraph ("Transaction Type : " + pdfText2));
             mDoc.add(new Paragraph("Amount :" + pdfText3));
-            mDoc.add(new Paragraph("Remark :" + pdfText4));
             mDoc.add(new Paragraph("Transaction Date :" + pdfText5));
-            mDoc.add(new Paragraph("Transaction Status :" + pdftext6));
             mDoc.close ();
             Toast.makeText(this, "saved" + mFilePath,Toast.LENGTH_LONG).show();
         }
@@ -141,12 +137,12 @@ public class RupayWithdrawOutput extends AppCompatActivity {
 
     public void getReport(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.6:8080/MintApi2/")
+                .baseUrl("http://192.168.43.6:8080/Mint/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         WithdrawApi withdrawApi = retrofit.create(WithdrawApi.class);
-        Call<Transaction> call = withdrawApi.transferFund(agentId, cardNumber,cardHolderName,cvv,expireDate, pin, amount);
+        Call<Transaction> call = withdrawApi.rupayWithdraw(agentId, cardNumber,cardHolderName,cvv,expireDate, pin, amount);
         call.enqueue(new Callback<Transaction> () {
             @Override
             public void onResponse(Call<Transaction> call, Response<Transaction> response) {
@@ -161,9 +157,8 @@ public class RupayWithdrawOutput extends AppCompatActivity {
                 withdrawRrn.append(" " + transactions.getRrn());
                 transactionType.append(" " + transactions.getTransactionType());
                 withdrawAmount.append(" " + transactions.getAmount());
-                withdrawRemark.append(" " + transactions.getRemark());
                 withdrawDate.append(" "+transactions.getTransactionDate());
-                withdrawTransactionStatus.setText("Transaction Successful");
+                withdrawTransactionStatus.setText("Successful");
 
             }
 

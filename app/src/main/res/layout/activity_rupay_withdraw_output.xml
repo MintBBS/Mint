@@ -215,26 +215,26 @@
         app:layout_constraintVertical_bias="0.063" />
 
     <TextView
-        android:id="@+id/tranStatus"
+        android:id="@+id/transactionStatusRupayWithdraw"
         android:layout_width="182dp"
         android:layout_height="49dp"
+        android:layout_marginEnd="16dp"
         android:paddingTop="10dp"
-        android:text="Successful"
         android:textColor="	#FF0000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/depositStatusTitle"
+        app:layout_constraintStart_toEndOf="@+id/tranStatusTitle"
         app:layout_constraintTop_toBottomOf="@+id/textViewRupayWithdrawDate"
-        app:layout_constraintVertical_bias="0.061" />
+        app:layout_constraintVertical_bias="0.059" />
 
     <Button
-        android:id="@+id/buttonPrintWithdraw"
+        android:id="@+id/buttonPrintRupayWithdraw"
         android:layout_width="160dp"
         android:layout_height="58dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/button"
-        android:text="Generate Report"
+        android:text="Generate Reciept"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
