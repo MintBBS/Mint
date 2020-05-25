@@ -28,38 +28,37 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Apysts extends AppCompatActivity {
+public class Rdsts extends AppCompatActivity {
     private static final int STORAGE_CODE=1000;
     TextView acountno;
     TextView nomineename;
     TextView nomineeaadhar;
     TextView scheme_id;
-    Button printapy;
+    Button printrd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_apysts);
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_rdsts);
 
         String aadhar_number= getIntent().getStringExtra("aadhar_number");
 
-        acountno = findViewById(R.id.textViewApyAccountNumber);
-        nomineename = findViewById(R.id.textViewApyNomineeName);
-        nomineeaadhar = findViewById(R.id.textViewApyNomineeAadhar);
-        scheme_id = findViewById(R.id.textViewApySchemeId);
-
-        printapy= findViewById(R.id.printapy);
+        acountno = findViewById(R.id.textViewRdAccountNumber);
+        nomineename = findViewById(R.id.textViewRdNomineeName);
+        nomineeaadhar = findViewById(R.id.textViewRdNomineeAadhar);
+        scheme_id = findViewById(R.id.textViewRdSchemeId);
+        printrd= findViewById(R.id.printrd);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.242:8080/Mint/")
+                .baseUrl("http://172.20.10.3:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApyApi apyapi = retrofit.create(ApyApi.class);
-        Call<Apy> call = apyapi.getAadhar_number(aadhar_number);
-        call.enqueue(new Callback<Apy>() {
+        RdApi rdapi = retrofit.create(RdApi.class);
+        Call<Rd> call = rdapi.getAadhar_nbr(aadhar_number);
+        call.enqueue(new Callback<Rd> () {
             @Override
-            public void onResponse(Call<Apy> call, Response<Apy> response) {
+            public void onResponse(Call<Rd> call, Response<Rd> response) {
                 if (!response.isSuccessful()) {
                     acountno.setText("Error Code: " + response.code());
                     nomineename.setText("Error Code: " + response.code());
@@ -69,18 +68,18 @@ public class Apysts extends AppCompatActivity {
                 }
 
 
-                Apy apy = response.body();
+                Rd rd = response.body();
                 {
-                    acountno.append(" " + apy.getAccount_number());
-                    nomineename.append(" " + apy.getNominee_name());
-                    nomineeaadhar.append(" " + apy.getNominee_aadhar());
-                    scheme_id.append(" " + apy.getScheme_id());
+                    acountno.append(" " + rd.getAccount_number());
+                    nomineename.append(" " + rd.getNominee_name());
+                    nomineeaadhar.append(" " + rd.getNominee_aadhar());
+                    scheme_id.append(" " + rd.getScheme_id());
 
                 }
             }
 
             @Override
-            public void onFailure(Call<Apy> call, Throwable t) {
+            public void onFailure(Call<Rd> call, Throwable t) {
                 acountno.setText(t.getMessage());
                 nomineename.setText(t.getMessage());
                 nomineeaadhar.setText(t.getMessage());
@@ -90,9 +89,8 @@ public class Apysts extends AppCompatActivity {
 
 
         });
-//
 
-        printapy.setOnClickListener(new View.OnClickListener() {
+        printrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
@@ -117,7 +115,7 @@ public class Apysts extends AppCompatActivity {
         Document mDoc = new Document();
         String mFileName = new SimpleDateFormat ("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(System.currentTimeMillis());
-        String mFilePath = Environment.getExternalStorageDirectory() + "/Mint/Schemes/" + "Apy_" + mFileName + ".pdf";
+        String mFilePath = Environment.getExternalStorageDirectory() + "/MINT/RD_applied" + mFileName + ".pdf";
         try {
             PdfWriter.getInstance(mDoc, new FileOutputStream (mFilePath));
             mDoc.open();

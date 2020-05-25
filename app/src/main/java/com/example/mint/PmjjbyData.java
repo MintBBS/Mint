@@ -42,10 +42,10 @@ public class PmjjbyData extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_pmjjby_data);
-
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pmjjby_data);
 
         awesomeValidation1 = new AwesomeValidation(ValidationStyle.BASIC);
         aadharrnumber=(EditText) findViewById(R.id.pmjjbyaadhar_number);
@@ -58,7 +58,7 @@ public class PmjjbyData extends AppCompatActivity {
 
         //awesomeValidation1.addValidation(this, R.id.pmjjbyaadhar_number, "^[3-9]{1}[0-9]{11}$", R.string.pmsbyaadhar_number);
         awesomeValidation1.addValidation(this, R.id.pmjjbyaccount_number, "^[1-9]{1}[0-9]{9}$", R.string.pmsbyaccount_number);
-        //awesomeValidation1.addValidation(this, R.id.pmjjbynominee_aadhar, "^[3-9]{1}[0-9]{11}$",R.string.pmjjbynominee_aadhar);
+        // awesomeValidation1.addValidation(this, R.id.pmjjbynominee_aadhar, "^[3-9]{1}[0-9]{11}$",R.string.pmjjbynominee_aadhar);
         awesomeValidation1.addValidation(this, R.id.pmjjbynominee_name, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.pmsbynominee_name);
         //     awesomeValidation1.addValidation(this, R.id.pmsbynominee_relation, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.pmsbynominee_relation);
         awesomeValidation1.addValidation(this, R.id.pmjjbydateofbirth, "[0-3]{1}[0-9]{1}-[0-1]{1}[0-9]{1}-[1-2]{1}[0-9]{3}", R.string.pmsbydateofbirth);
@@ -85,7 +85,7 @@ public class PmjjbyData extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.109:8080/Mint/")
+                .baseUrl("http://192.168.42.242:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         pmjjbyApi =retrofit.create(PmjjbyApi.class);
@@ -114,14 +114,14 @@ public class PmjjbyData extends AppCompatActivity {
 
     private void createPmjjby(Pmjjby pmjjby){
         Call<Pmjjby>  call = pmjjbyApi.createPmjjby(pmjjby);
-        call.enqueue(new Callback<Pmjjby> () {
+        call.enqueue(new Callback<Pmjjby>() {
             @Override
             public void onResponse(Call<Pmjjby> call, Response<Pmjjby> response) {
                 if (!response.isSuccessful()){
 
                 }
                 Pmjjby apiResponse=response.body();
-                Intent intent=new Intent (PmjjbyData.this,Pmjjbysts.class);
+                Intent intent=new Intent(PmjjbyData.this,Pmjjbysts.class);
                 intent.putExtra("aadhar_number",apiResponse.getAadhar_number());
                 startActivity(intent);
 
@@ -134,4 +134,5 @@ public class PmjjbyData extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -96,13 +96,13 @@ public class MainActivity extends AppCompatActivity {
 
         textViewTimer.setText ("");
 
-//        fingerprintString.setOnClickListener (new View.OnClickListener () {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent (getApplicationContext (), HomepageActivity.class);
-//                startActivity (intent);
-//            }
-//        });
+        fingerprintString.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getApplicationContext (), HomepageActivity.class);
+                startActivity (intent);
+            }
+        });
 
         int permissionCheck = ContextCompat.checkSelfPermission (this, Manifest.permission.READ_PHONE_STATE);
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void validateUser(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl ("http://192.168.42.37:8080/Mint/")
+                .baseUrl ("http://192.168.42.242:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
 
@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void validateFingerprint(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl ("http://192.168.42.37:8080/Mint/")
+                .baseUrl ("http://192.168.42.242:8080/Mint/")
                 .addConverterFactory (ScalarsConverterFactory.create ())
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();

@@ -33,7 +33,7 @@
         android:id="@+id/textView"
         android:layout_width="257dp"
         android:layout_height="54dp"
-        android:text="RD  Scheme"
+        android:text="RD Scheme"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
         android:textSize="25dp"
@@ -46,15 +46,15 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="413dp"
-        android:layout_height="272dp"
-        android:paddingLeft="25dp"
+        android:layout_width="396dp"
+        android:layout_height="269dp"
+        android:paddingLeft="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431">
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.219">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,16 +63,16 @@
 
             <EditText
                 android:id="@+id/rdaadhar_number"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:hint="Enter Aadhar Number"
                 android:inputType="number"
                 android:maxLength="12"
+                android:paddingLeft="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
@@ -82,16 +82,16 @@
 
             <EditText
                 android:id="@+id/rdaccount_number"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:hint="Enter Account Number"
                 android:inputType="number"
                 android:maxLength="10"
+                android:paddingLeft="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.49"
@@ -101,16 +101,16 @@
 
             <EditText
                 android:id="@+id/rddateofbirth"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:hint="Enter Date of Birth(DD-MM-YYYY)"
                 android:inputType="date"
                 android:maxLength="10"
+                android:paddingLeft="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.49"
@@ -120,16 +120,16 @@
 
             <EditText
                 android:id="@+id/rdnominee_aadhar"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:hint="Enter Nominee Aadhar"
                 android:inputType="number"
                 android:maxLength="12"
+                android:paddingLeft="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.49"
@@ -139,15 +139,15 @@
 
             <EditText
                 android:id="@+id/rdnominee_name"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:hint="Enter Nominee Name"
                 android:inputType="textPersonName"
+                android:paddingLeft="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.49"
@@ -160,7 +160,6 @@
                 android:layout_width="307dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginBottom="10dp"
                 android:paddingLeft="20dp"
                 android:text="Select Nominee Relation"
                 android:textSize="24sp"
@@ -172,9 +171,9 @@
                 app:layout_constraintVertical_bias="0.033" />
 
             <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:id="@+id/spinner5"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -188,16 +187,16 @@
 
             <EditText
                 android:id="@+id/rdamount"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:hint="Enter RD Amount"
                 android:inputType="numberDecimal"
                 android:maxLength="5"
+                android:paddingLeft="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.49"
@@ -207,16 +206,16 @@
 
             <EditText
                 android:id="@+id/rdinstallment_amount"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:hint="Enter Installment Amount"
                 android:inputType="numberDecimal"
                 android:maxLength="4"
+                android:paddingLeft="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.49"
@@ -228,7 +227,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/buttonFundTransfer"
+        android:id="@+id/rdbutton"
         android:layout_width="124dp"
         android:layout_height="53dp"
         android:background="@drawable/button"
@@ -239,18 +238,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3"
         app:layout_constraintVertical_bias="0.129" />
-
-    <ImageButton
-        android:id="@+id/imageButtonFundTransferFingerprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittext"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFundTransfer"
-        app:layout_constraintVertical_bias="0.144"
-        app:srcCompat="@drawable/fingerprint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -134,10 +134,10 @@
 
     <Button
         android:id="@+id/buttonPrintBalanceEnquiry"
-        android:layout_width="160dp"
-        android:layout_height="58dp"
+        android:layout_width="187dp"
+        android:layout_height="52dp"
         android:background="@drawable/button"
-        android:text="Generate Report"
+        android:text="Generate Receipt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

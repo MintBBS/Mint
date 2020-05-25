@@ -50,7 +50,7 @@
         android:layout_width="391dp"
         android:layout_height="293dp"
         android:layout_marginEnd="8dp"
-        android:paddingLeft="25dp"
+        android:paddingLeft="29dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
@@ -65,8 +65,8 @@
 
             <EditText
                 android:id="@+id/pmsbyaadhar_number"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edittext"
@@ -84,8 +84,8 @@
 
             <EditText
                 android:id="@+id/pmsbyaccount_number"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edittext"
@@ -102,8 +102,8 @@
 
             <EditText
                 android:id="@+id/pmsbydateofbirth"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edittext"
@@ -121,8 +121,8 @@
 
             <EditText
                 android:id="@+id/pmsbynominee_aadhar"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edittext"
@@ -140,8 +140,8 @@
 
             <EditText
                 android:id="@+id/pmsbynominee_name"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/edittext"
@@ -158,8 +158,8 @@
 
             <TextView
                 android:id="@+id/textView17"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:paddingLeft="20dp"
@@ -173,9 +173,9 @@
                 app:layout_constraintVertical_bias="0.033" />
 
             <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="307dp"
-                android:layout_height="50dp"
+                android:id="@+id/spinner4"
+                android:layout_width="300dp"
+                android:layout_height="53dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border"
@@ -196,7 +196,7 @@
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:paddingLeft="20dp"
-                android:text="             AMOUNT  Rs. 12"
+                android:text=" AMOUNT  Rs. 12"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -209,7 +209,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/buttonFundTransfer"
+        android:id="@+id/pmsbyButton"
         android:layout_width="124dp"
         android:layout_height="53dp"
         android:background="@drawable/button"
@@ -220,19 +220,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3"
         app:layout_constraintVertical_bias="0.129" />
-
-    <ImageButton
-        android:id="@+id/imageButtonFundTransferFingerprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittext"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFundTransfer"
-        app:layout_constraintVertical_bias="0.144"
-        app:srcCompat="@drawable/fingerprint" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

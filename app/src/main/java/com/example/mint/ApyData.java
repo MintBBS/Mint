@@ -40,11 +40,11 @@ public class ApyData extends AppCompatActivity {
     String names[]={"Father","Mother","Son","Daughter","Husband","Wife"};
     ArrayAdapter<String> adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_apy_data);
-
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         aadharrnumber=(EditText) findViewById(R.id.apyaadhar_number);
@@ -58,6 +58,7 @@ public class ApyData extends AppCompatActivity {
         apybutton=(Button)  findViewById(R.id.apybutton);
 
         sp = (Spinner)findViewById(R.id.spinner3);
+
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,names);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp.setPrompt("Select Nominee Relation");
@@ -76,20 +77,22 @@ public class ApyData extends AppCompatActivity {
 
             }
         });
+//
 
         //data validator
 
-        awesomeValidation.addValidation(this, R.id.apyaadhar_number, "^[3-9]{1}[0-9]{11}$", R.string.apyaadhar_number);
+        // awesomeValidation.addValidation(this, R.id.apyaadhar_number, "^[3-9]{1}[0-9]{11}$", R.string.apyaadhar_number);
         awesomeValidation.addValidation(this, R.id.apyaccount_number, "^[1-9]{1}[0-9]{9}$", R.string.apyaccount_number);
-        awesomeValidation.addValidation(this, R.id.apynominee_aadhar, "^[3-9]{1}[0-9]{11}$", R.string.apynominee_aadhar);
+        // awesomeValidation.addValidation(this, R.id.apynominee_aadhar, "^[3-9]{1}[0-9]{11}$", R.string.apynominee_aadhar);
         awesomeValidation.addValidation(this, R.id.apynominee_name, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.apynominee_name);
         //  awesomeValidation.addValidation(this, R.id.apynominee_relation, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.apynominee_relation);
         awesomeValidation.addValidation(this, R.id.apyamount, "^[0-9]{5}$", R.string.apyamount);
         awesomeValidation.addValidation(this, R.id.apypension_amount, "^[0-9]{4}$", R.string.apypension_amount);
         awesomeValidation.addValidation(this, R.id.apydateofbirth, "[0-3]{1}[0-9]{1}-[0-1]{1}[0-9]{1}-[1-2]{1}[0-9]{1}[0-9]{2}", R.string.apydateofbirth);
+        //retrofit builder
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.227:8080/Mint/")
+                .baseUrl("http://192.168.42.242:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apyApi =retrofit.create(ApyApi.class);
@@ -98,12 +101,15 @@ public class ApyData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (v == apybutton) {
-                    submitForm ();
+                    submitForm();
                 }
             }
         });
 
+
     }
+
+
 
     private void submitForm() {
         //first validate the form then move ahead
@@ -114,13 +120,16 @@ public class ApyData extends AppCompatActivity {
                     pensionamount.getText().toString(),dateofbirth.getText().toString());
 
             createApy(ap);
+
+
         }
     }
+
 
     private void createApy(Apy apy){
 //        Apy apy = new Apy("34556456","35366","3466","ghfh","fghg","fghg","fghgf","fggfg");
         Call<Apy> call= apyApi.createApy(apy);
-        call.enqueue(new Callback<Apy> () {
+        call.enqueue(new Callback<Apy>() {
             @Override
             public void onResponse(Call<Apy> call, Response<Apy> response) {
                 if(!response.isSuccessful()){
@@ -129,7 +138,7 @@ public class ApyData extends AppCompatActivity {
                     return;
                 }
                 Apy apiResponse= response.body();
-                Intent intent = new Intent (ApyData.this,Apysts.class);
+                Intent intent = new Intent(ApyData.this,Apysts.class);
                 intent.putExtra("aadhar_number",apiResponse.getAadhar_number());
                 startActivity(intent);
             }
@@ -141,4 +150,6 @@ public class ApyData extends AppCompatActivity {
             }
         });
     }
+
 }
+

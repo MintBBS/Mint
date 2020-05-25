@@ -178,11 +178,11 @@
 
     <Button
         android:id="@+id/buttonPrintRrnStatus"
-        android:layout_width="148dp"
-        android:layout_height="58dp"
+        android:layout_width="187dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/button"
-        android:text="Print"
+        android:text="Generate Receipt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

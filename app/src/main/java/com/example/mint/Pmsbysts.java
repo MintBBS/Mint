@@ -28,38 +28,37 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Apysts extends AppCompatActivity {
+public class Pmsbysts extends AppCompatActivity {
+
     private static final int STORAGE_CODE=1000;
     TextView acountno;
     TextView nomineename;
     TextView nomineeaadhar;
     TextView scheme_id;
-    Button printapy;
+    Button printpmsby;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_apysts);
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_pmsbysts);
 
         String aadhar_number= getIntent().getStringExtra("aadhar_number");
 
-        acountno = findViewById(R.id.textViewApyAccountNumber);
-        nomineename = findViewById(R.id.textViewApyNomineeName);
-        nomineeaadhar = findViewById(R.id.textViewApyNomineeAadhar);
-        scheme_id = findViewById(R.id.textViewApySchemeId);
-
-        printapy= findViewById(R.id.printapy);
+        acountno = findViewById(R.id.textViewPmsbyAccountNumber);
+        nomineename = findViewById(R.id.textViewPmsbyNomineeName);
+        nomineeaadhar = findViewById(R.id.textViewPmsbyNomineeAadhar);
+        scheme_id = findViewById(R.id.textViewPmsbySchemeId);
+        printpmsby=findViewById(R.id.printpmsby);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.42.242:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApyApi apyapi = retrofit.create(ApyApi.class);
-        Call<Apy> call = apyapi.getAadhar_number(aadhar_number);
-        call.enqueue(new Callback<Apy>() {
+        PmsbyApi pmsbyapi = retrofit.create(PmsbyApi.class);
+        Call<Pmsby> call = pmsbyapi.getAadharnbr(aadhar_number);
+        call.enqueue(new Callback<Pmsby> () {
             @Override
-            public void onResponse(Call<Apy> call, Response<Apy> response) {
+            public void onResponse(Call<Pmsby> call, Response<Pmsby> response) {
                 if (!response.isSuccessful()) {
                     acountno.setText("Error Code: " + response.code());
                     nomineename.setText("Error Code: " + response.code());
@@ -69,18 +68,18 @@ public class Apysts extends AppCompatActivity {
                 }
 
 
-                Apy apy = response.body();
+                Pmsby pmsby = response.body();
                 {
-                    acountno.append(" " + apy.getAccount_number());
-                    nomineename.append(" " + apy.getNominee_name());
-                    nomineeaadhar.append(" " + apy.getNominee_aadhar());
-                    scheme_id.append(" " + apy.getScheme_id());
+                    acountno.append(" " + pmsby.getAccount_number());
+                    nomineename.append(" " + pmsby.getNominee_name());
+                    nomineeaadhar.append(" " + pmsby.getNominee_aadhar());
+                    scheme_id.append(" " + pmsby.getScheme_id());
 
                 }
             }
 
             @Override
-            public void onFailure(Call<Apy> call, Throwable t) {
+            public void onFailure(Call<Pmsby> call, Throwable t) {
                 acountno.setText(t.getMessage());
                 nomineename.setText(t.getMessage());
                 nomineeaadhar.setText(t.getMessage());
@@ -90,9 +89,8 @@ public class Apysts extends AppCompatActivity {
 
 
         });
-//
 
-        printapy.setOnClickListener(new View.OnClickListener() {
+        printpmsby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
@@ -101,23 +99,23 @@ public class Apysts extends AppCompatActivity {
                         requestPermissions(permissions,STORAGE_CODE);
                     }
                     else{
-                        savePdf1();
+                        savePdf();
                     }
                 }
                 else{
-                    savePdf1();
+                    savePdf();
                 }
             }
         });
 
     }
 
-    public void savePdf1()
+    public void savePdf()
     {
         Document mDoc = new Document();
         String mFileName = new SimpleDateFormat ("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(System.currentTimeMillis());
-        String mFilePath = Environment.getExternalStorageDirectory() + "/Mint/Schemes/" + "Apy_" + mFileName + ".pdf";
+        String mFilePath = Environment.getExternalStorageDirectory() + "/MINT/PMSBY_applied" + mFileName + ".pdf";
         try {
             PdfWriter.getInstance(mDoc, new FileOutputStream (mFilePath));
             mDoc.open();
@@ -131,7 +129,7 @@ public class Apysts extends AppCompatActivity {
             mDoc.addTitle (String.valueOf (new Paragraph (heading)));
             mDoc.add(new Paragraph("----Transaction Report---- "));
             mDoc.add(new Paragraph("Scheme Id: "+pdfText3));
-            mDoc.add(new Paragraph("Scheme Type - PMJJBY "));
+            mDoc.add(new Paragraph("Scheme Type - PMSBY "));
             mDoc.add(new Paragraph(" Customer Account Number: " + pdfText));
             mDoc.add (new Paragraph ("Nominee Name : " + pdfText1));
             mDoc.add (new Paragraph ("Nominee Aadhar Number : " + pdfText2));
@@ -148,12 +146,13 @@ public class Apysts extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case STORAGE_CODE: {
-                if (grantResults.length > 0 && grantResults.length == PackageManager.PERMISSION_GRANTED) {
-                    savePdf1();
-                } else {
-                    Toast.makeText(this, "Permission Denied..!", Toast.LENGTH_LONG).show();
+        switch (requestCode){
+            case STORAGE_CODE:{
+                if(grantResults.length >  0 && grantResults.length == PackageManager.PERMISSION_GRANTED){
+                    savePdf();
+                }
+                else{
+                    Toast.makeText(this,"Permission Denied..!", Toast.LENGTH_LONG).show();
                 }
             }
         }
