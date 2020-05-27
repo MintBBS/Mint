@@ -35,6 +35,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
     TextView transactionType;
     TextView withdrawRrn;
     TextView withdrawAmount;
+
     String agentId;
     String cardNumber;
     String cardHolderName;
@@ -45,6 +46,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
     TextView withdrawDate;
     TextView withdrawTransactionStatus;
     Button printbutton;
+    TextView cardNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
         setContentView (R.layout.activity_rupay_withdraw_output);
 
         printbutton = findViewById(R.id.buttonPrintRupayWithdraw);
+        cardNo = findViewById (R.id.textViewRupayWithdrawCardNumber);
         withdrawAccountNumber = (TextView) findViewById(R.id.textViewRupayWithdrawAccountNumber);
         withdrawRrn = (TextView) findViewById(R.id.textViewRupayWithdrawRRN);
         transactionType = (TextView) findViewById(R.id.textViewRupayWithdrawTransactionType);
@@ -151,9 +154,19 @@ public class RupayWithdrawOutput extends AppCompatActivity {
                     Toast.makeText (getApplicationContext (), "INVALID DETAIL!!! Unsuccessful Transaction", Toast.LENGTH_LONG).show ();
                     return;
                 }
+
+                String value3 = cardNumber.substring(1,16);
+                String value4 = value3.replace(value3,"************") + cardNumber.substring(12,16);
+                cardNo.setText(value4);
+
                 Transaction transactions = response.body();
 
-                withdrawAccountNumber.append(" "+transactions.getAccountNumber());
+                String AccountNumber = transactions.getAccountNumber();
+
+                String value1 = AccountNumber.substring(1,9);
+                String value2 = value1.replace(value1,"******") + AccountNumber.substring(6,9);
+                withdrawAccountNumber.setText(value2);
+
                 withdrawRrn.append(" " + transactions.getRrn());
                 transactionType.append(" " + transactions.getTransactionType());
                 withdrawAmount.append(" " + transactions.getAmount());

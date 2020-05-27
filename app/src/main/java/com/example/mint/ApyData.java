@@ -3,6 +3,7 @@ package com.example.mint;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -109,6 +110,15 @@ public class ApyData extends AppCompatActivity {
 
     }
 
+    public class ApyThread extends AsyncTask<Void, Void, Void>{
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
+
 
 
     private void submitForm() {
@@ -150,6 +160,5 @@ public class ApyData extends AppCompatActivity {
             }
         });
     }
-
 }
 

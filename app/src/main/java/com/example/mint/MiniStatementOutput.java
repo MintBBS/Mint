@@ -83,7 +83,7 @@ public class MiniStatementOutput extends AppCompatActivity {
 
     public void getMiniStatement(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.37:8080/Mint/")
+                baseUrl("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         MiniStatementApi miniStatementApi = retrofit.create (MiniStatementApi.class);
@@ -102,7 +102,11 @@ public class MiniStatementOutput extends AppCompatActivity {
                     return;
                 }
                 List<Transaction> transaction = response.body ();
-                accountNumber.setText (accountNo);
+                //accountNumber.setText (accountNo);
+
+                String value1 = accountNo.substring(1,9);
+                String value2 = value1.replace(value1,"******") + accountNo.substring(6,9);
+                accountNumber.setText(value2);
 
                 for (Transaction report: transaction){
 

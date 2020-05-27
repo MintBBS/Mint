@@ -47,10 +47,15 @@ public class AgentBalanceOutput extends AppCompatActivity {
         Intent intent = getIntent ();
         String name = intent.getStringExtra ("name");
         String accountNo = intent.getStringExtra ("accountNo");
+
+        String value1 = accountNo.substring(1,9);
+        String value2 = value1.replace(value1,"******") + accountNo.substring(6,9);
+        agentAccountNumber.setText(value2);
+
         String aBalance = intent.getStringExtra ("balance");
 
         agentName.setText (name);
-        agentAccountNumber.setText (accountNo);
+       // agentAccountNumber.setText (accountNo);
         agentBalance.setText (aBalance + " INR");
 
         print.setOnClickListener (new View.OnClickListener () {

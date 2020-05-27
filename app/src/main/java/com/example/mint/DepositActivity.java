@@ -1,7 +1,10 @@
 package com.example.mint;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -37,6 +41,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DepositActivity extends MySessionActivity implements
         AdapterView.OnItemSelectedListener{
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+
     Spinner spinner;
     String[] bank = {"Choose Bank", "UCO"};
 
@@ -73,8 +82,8 @@ public class DepositActivity extends MySessionActivity implements
         depositAmount = (EditText) findViewById (R.id.editTextDepositAmount);
         buttonDeposit = (Button) findViewById (R.id.buttonDeposit);
 
-        imageButtonFIngerprint = (ImageButton) findViewById (R.id.imageButtonDepositFingerprint);
-        textViewDepositFingerprint = (TextView) findViewById (R.id.textViewDepositFingerprint);
+        //imageButtonFIngerprint = (ImageButton) findViewById (R.id.imageButtonDepositFingerprint);
+       // textViewDepositFingerprint = (TextView) findViewById (R.id.textViewDepositFingerprint);
 
         final TextView spinnerItem = findViewById (R.id.spinnerItem);
 
@@ -122,26 +131,70 @@ public class DepositActivity extends MySessionActivity implements
         String amount = depositAmount.getText ().toString ();
         String account = depositAccountNumber.getText ().toString ();
 
-        imageButtonFIngerprint.setOnClickListener (new View.OnClickListener () {
+//        imageButtonFIngerprint.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                if (depositAadharNumber.getText ().toString ().isEmpty ()) {
+//                    depositAadharNumber.setError ("Enter a valid aadhar number ");
+//                    depositAadharNumber.requestFocus ();
+//                } else if (depositAadharNumber.getText ().toString ().length () < 12 || depositAadharNumber.getText ().toString ().length () > 12) {
+//                    depositAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
+//                    depositAadharNumber.requestFocus ();
+//                } else {
+//                    getAadharDetails ();
+//                }
+//            }
+//        });
+
+//fingerprint authentication
+        executor = ContextCompat.getMainExecutor (this);
+        biometricPrompt = new BiometricPrompt (DepositActivity.this,
+                executor, new BiometricPrompt.AuthenticationCallback () {
             @Override
-            public void onClick(View v) {
-                if (depositAadharNumber.getText ().toString ().isEmpty ()) {
-                    depositAadharNumber.setError ("Enter a valid aadhar number ");
-                    depositAadharNumber.requestFocus ();
-                } else if (depositAadharNumber.getText ().toString ().length () < 12 || depositAadharNumber.getText ().toString ().length () > 12) {
-                    depositAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
-                    depositAadharNumber.requestFocus ();
-                } else {
-                    getAadharDetails ();
-                }
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError (errorCode, errString);
+                Toast.makeText (getApplicationContext (),
+                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show ();
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded (result);
+
+                //Custom logic
+
+
+                depositMoney ();
+                Toast.makeText (getApplicationContext (),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show ();
+
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed ();
+                Toast.makeText (getApplicationContext (), "Authentication failed",
+                        Toast.LENGTH_SHORT)
+                        .show ();
             }
         });
 
+        promptInfo = new BiometricPrompt.PromptInfo.Builder ()
+                .setTitle ("Biometric Authentication for Mint")
+                .setSubtitle ("Log in using your biometric credential")
+                .setNegativeButtonText ("Cancel")
+                .build ();
 
+        // Prompt appears when user clicks "Log in".
+        // Consider integrating with the keystore to unlock cryptographic operations,
+        // if needed by your app.
         buttonDeposit.setOnClickListener (new View.OnClickListener () {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (depositAadharNumber.getText ().toString ().isEmpty ()) {
                     depositAadharNumber.setError ("Enter a valid aadhar number ");
                     depositAadharNumber.requestFocus ();
@@ -172,14 +225,58 @@ public class DepositActivity extends MySessionActivity implements
 //                    //Toast.makeText (DepositActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
 //                    textViewDepositFingerprint.requestFocus();
 //                }
-                else if(textViewDepositFingerprint.getText ().toString () == "") {
-                    Toast.makeText (DepositActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
-                }
+//                else if(textViewDepositFingerprint.getText ().toString () == "") {
+//                    Toast.makeText (DepositActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
+//                }
                 else {
-                    depositMoney ();
+                    biometricPrompt.authenticate (promptInfo);
                 }
             }
         });
+
+
+//        buttonDeposit.setOnClickListener (new View.OnClickListener () {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onClick(View v) {
+//                if (depositAadharNumber.getText ().toString ().isEmpty ()) {
+//                    depositAadharNumber.setError ("Enter a valid aadhar number ");
+//                    depositAadharNumber.requestFocus ();
+//                } else if (depositAadharNumber.getText ().toString ().length () < 12 || depositAadharNumber.getText ().toString ().length () > 12) {
+//                    depositAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
+//                    depositAadharNumber.requestFocus ();
+//                }
+//                else if(depositAccountNumber.getText().toString().isEmpty() )
+//                {
+//                    depositAccountNumber.setError("Please Enter Account Number  ");
+//                    depositAccountNumber.requestFocus();
+//                }
+//                else if(depositAmount.getText().toString().isEmpty() )
+//                {
+//                    depositAmount.setError("Please Enter amount  ");
+//                    depositAmount.requestFocus();
+//                }else if((Double.parseDouble(depositAmount.getText().toString())>50000)){
+//
+//                    depositAmount.setError("Maximum amount should be  Rs 50000 ");
+//                    depositAmount.requestFocus();
+//                }
+//                else if (  (Integer.parseInt(depositAmount.getText().toString())<100)){
+//                    depositAmount.setError("Minimum amount should be  Rs 100 ");
+//                    depositAmount.requestFocus();
+//                }
+////               else if(textViewDepositFingerprint.getText().toString().isEmpty())
+////                {
+////                    //Toast.makeText (DepositActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
+////                    textViewDepositFingerprint.requestFocus();
+////                }
+//                else if(textViewDepositFingerprint.getText ().toString () == "") {
+//                    Toast.makeText (DepositActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
+//                }
+//                else {
+//                    depositMoney ();
+//                }
+//            }
+//        });
     }
 
 
@@ -195,47 +292,47 @@ public class DepositActivity extends MySessionActivity implements
     }
 
 
-    public void getAadharDetails(){
-        Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.37:8080/AadharApi/")
-                .addConverterFactory (GsonConverterFactory.create ())
-                .build ();
-        AadharApi aadharApi = retrofit.create (AadharApi.class);
-
-        final String aadharNo = depositAadharNumber.getText ().toString ();
-
-
-        Call<Aadhar> aCall = aadharApi.getAadharDetails (aadharNo);
-
-        aCall.enqueue (new Callback<Aadhar> () {
-            @Override
-            public void onResponse(Call<Aadhar> aCall, Response<Aadhar> response) {
-                if (!response.isSuccessful ()){
-                    Toast.makeText (getApplicationContext (), response.code (), Toast.LENGTH_LONG).show ();
-                    return;
-                }
-
-                Aadhar details = response.body ();
-                if(details.getAadharNumber ().equals (aadharNo)) {
-
-                    textViewDepositFingerprint.setText (details.getFingerprint ());
-                }else{
-                    Toast.makeText (DepositActivity.this, "Enter a valid aadhar number", Toast.LENGTH_SHORT).show ();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Aadhar> aCall, Throwable t) {
-                Toast.makeText (getApplicationContext (), "Please Enter Valid Aadhar Number", Toast.LENGTH_LONG).show ();
-            }
-        });
-    }
+//    public void getAadharDetails(){
+//        Retrofit retrofit = new Retrofit.Builder ().
+//                baseUrl("http://192.168.42.242:8080/AadharApi/")
+//                .addConverterFactory (GsonConverterFactory.create ())
+//                .build ();
+//        AadharApi aadharApi = retrofit.create (AadharApi.class);
+//
+//        final String aadharNo = depositAadharNumber.getText ().toString ();
+//
+//
+//        Call<Aadhar> aCall = aadharApi.getAadharDetails (aadharNo);
+//
+//        aCall.enqueue (new Callback<Aadhar> () {
+//            @Override
+//            public void onResponse(Call<Aadhar> aCall, Response<Aadhar> response) {
+//                if (!response.isSuccessful ()){
+//                    Toast.makeText (getApplicationContext (), response.code (), Toast.LENGTH_LONG).show ();
+//                    return;
+//                }
+//
+//                Aadhar details = response.body ();
+//                if(details.getAadharNumber ().equals (aadharNo)) {
+//
+//                    textViewDepositFingerprint.setText (details.getFingerprint ());
+//                }else{
+//                    Toast.makeText (DepositActivity.this, "Enter a valid aadhar number", Toast.LENGTH_SHORT).show ();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Aadhar> aCall, Throwable t) {
+//                Toast.makeText (getApplicationContext (), "Please Enter Valid Aadhar Number", Toast.LENGTH_LONG).show ();
+//            }
+//        });
+//    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void depositMoney(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.37:8080/Mint/")
+                baseUrl ("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         DepositApi depositApi = retrofit.create (DepositApi.class);

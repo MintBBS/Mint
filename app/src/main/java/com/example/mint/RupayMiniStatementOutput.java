@@ -31,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RupayMiniStatementOutput extends AppCompatActivity {
     private static final int STORAGE_CODE =1000 ;
+    TextView cardNo;
     TextView accountNumber;
     TextView availableBalance;
     TextView transactionDate;
@@ -41,7 +42,9 @@ public class RupayMiniStatementOutput extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_rupay_mini_statement_output);
-        accountNumber = (TextView) findViewById (R.id.textViewRupayMiniStatementCardNumber);
+
+        cardNo = (TextView) findViewById (R.id.textViewRupayMiniStatementCardNumber);
+        accountNumber = findViewById (R.id.textViewRupayMiniStatementAccountNumber);
         transactionDate = (TextView) findViewById (R.id.textViewRupayMiniStatementDate);
         recordType = (TextView) findViewById (R.id.textViewRupayMiniStatementRecordType);
         amount = (TextView) findViewById (R.id.textViewRupayMiniStatementAmount);
@@ -96,9 +99,18 @@ public class RupayMiniStatementOutput extends AppCompatActivity {
                     return;
                 }
                 List<Transaction> transaction = response.body ();
-                accountNumber.setText (cardNumber);
+               // cardNo.setText (cardNumber);
+                String value3 = cardNumber.substring(1,16);
+                String value4 = value3.replace(value3,"************") + cardNumber.substring(12,16);
+                cardNo.setText(value4);
 
                 for (Transaction report: transaction){
+
+                    String acctNo = report.getAccountNumber ();
+
+                    String value1 = acctNo.substring(1,9);
+                    String value2 = value1.replace(value1,"******") + acctNo.substring(6,9);
+                    accountNumber.setText(value2);
 
                     transactionDate.append (report.getTransactionDate () + "\n" + "\n" + "\n");
                     recordType.append (report.getTransactionType () + "\n" + "\n" + "\n");

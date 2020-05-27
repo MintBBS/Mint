@@ -96,15 +96,15 @@
         android:text="Deposit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDepositFingerprint"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDepositAccountNo"
+        app:layout_constraintVertical_bias="0.078" />
 
     <ImageButton
         android:id="@+id/imageButtonDepositFingerprint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:background="@drawable/edittext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -123,12 +123,13 @@
         android:paddingTop="16dp"
         android:textColor="#000"
         android:textSize="17dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDepositAccountNo"
-        app:layout_constraintVertical_bias="0.029" />
+        app:layout_constraintVertical_bias="0.948" />
 
     <Spinner
         android:id="@+id/depositSpinner"
@@ -140,6 +141,6 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintVertical_bias="0.097" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

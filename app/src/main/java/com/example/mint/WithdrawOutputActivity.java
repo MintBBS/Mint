@@ -56,6 +56,11 @@ public class WithdrawOutputActivity extends AppCompatActivity {
 
         Intent intent = getIntent ();
         String withdrawAccountNo =  intent.getStringExtra ("withdrawAccountNumber");
+
+        String value1 = withdrawAccountNo.substring(1,9);
+        String value2 = value1.replace(value1,"******") + withdrawAccountNo.substring(6,9);
+        withdrawAccountNumber.setText(value2);
+
         String withdrawRRN = intent.getStringExtra ("withdrawRrn");
         String withdrawAmount1 = intent.getStringExtra ("withdrawAmount" );
         String withdrawDate1 = intent.getStringExtra ("withdrawDate");

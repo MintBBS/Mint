@@ -141,9 +141,17 @@ public class EodOutput extends AppCompatActivity  {
                 int count = 0 ;
 
                 for(AgentTransaction aT: report){
+                    String acctNo = aT.getAccountNumber ();
                     count = count + 1;
                     eodReport.append ("------------------------------------------------------------" + "\n");
-                    eodReport.append ("Account No : " + aT.getAccountNumber () + "\n" + "\n" );
+
+
+                    String value1 = acctNo.substring(1,9);
+                    String value2 = value1.replace(value1,"******") + acctNo.substring(6,9);
+                    //accountNumberBalanceEnquiry.setText(value2);
+
+                    eodReport.append ("Account No : " + value2 + "\n" + "\n" );
+
                     eodReport.append ("RRN : " + aT.getRrn () + "\n" + "\n");
                     eodReport.append ("Amount : " + aT.getAmount () + " INR" + "\n" + "\n");
                     eodReport.append ("Transaction Type : " + aT.getTransactionType () + "\n");

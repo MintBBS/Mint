@@ -50,6 +50,7 @@ public class RupayBalanceEnquiryOutput extends AppCompatActivity {
         viewaccountNo=findViewById(R.id.textViewRupayAccountNumber);
         viewtransactionType=findViewById(R.id.textViewRupayTransactionType);
         viewBalance=findViewById(R.id.textViewRupayAccountBalance);
+        final TextView rupayCardNumber = findViewById (R.id.textViewRupayBalanceEnquiryCardNumber);
         printbutton = findViewById(R.id.buttonRupayBalancePrint);
 
         printbutton.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +92,19 @@ public class RupayBalanceEnquiryOutput extends AppCompatActivity {
                     return;
                 }
                 Account details = response.body();
-                viewaccountNo.append(" " + details.getAccountNumber());
+                String accountNo = details.getAccountNumber ();
+
+                String value1 = accountNo.substring(1,9);
+                String value2 = value1.replace(value1,"******") + accountNo.substring(6,9);
+                viewaccountNo.setText(value2);
+
+
+                //viewaccountNo.append(" " + details.getAccountNumber());
                 viewtransactionType.append(cardNumber);
+                String value3 = cardNumber.substring(1,16);
+                String value4 = value3.replace(value3,"************") + cardNumber.substring(12,16);
+                rupayCardNumber.setText(value4);
+
                 viewBalance.append(" " + details.getBalance() + " INR");
 
             }

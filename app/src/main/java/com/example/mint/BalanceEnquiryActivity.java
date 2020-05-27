@@ -1,7 +1,10 @@
 package com.example.mint;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -36,6 +40,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class BalanceEnquiryActivity extends MySessionActivity {
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
 
     Spinner spinner;
     String[] bank = {"Choose Bank", "UCO"};
@@ -67,8 +75,8 @@ public class BalanceEnquiryActivity extends MySessionActivity {
         balanceEnquiryAadharNumber = (EditText) findViewById (R.id.editTextBalanceEnquiryAadharNo);
         balanceEnquiryAccountNumber = (EditText) findViewById (R.id.editTextBalanceEnquiryAccountNo);
         buttonBalanceEnquiry = (Button) findViewById (R.id.balaceEnquiryButton);
-        textViewFingerprint = (TextView) findViewById (R.id.textViewBalanceEnquiryFingerprint);
-        imageButtonFIngerprint = (ImageButton) findViewById (R.id.imageButtonBalanceEnquiryFingerprint);
+        //textViewFingerprint = (TextView) findViewById (R.id.textViewBalanceEnquiryFingerprint);
+       // imageButtonFIngerprint = (ImageButton) findViewById (R.id.imageButtonBalanceEnquiryFingerprint);
 
 //        balanceEnquiryAadharNumber.addTextChangedListener (loginTextWatcher);
 //        balanceEnquiryAccountNumber.addTextChangedListener (loginTextWatcher);
@@ -109,32 +117,77 @@ public class BalanceEnquiryActivity extends MySessionActivity {
 
 
 
-        textViewFingerprint.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText (BalanceEnquiryActivity.this, balanceEnquiryAadharNumber.getText ().toString ().replaceAll (" ", ""), Toast.LENGTH_SHORT).show ();
-            }
-        });
+//        textViewFingerprint.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText (BalanceEnquiryActivity.this, balanceEnquiryAadharNumber.getText ().toString ().replaceAll (" ", ""), Toast.LENGTH_SHORT).show ();
+//            }
+//        });
 
-        imageButtonFIngerprint.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                if (balanceEnquiryAadharNumber.getText ().toString ().isEmpty ()) {
-                    balanceEnquiryAadharNumber.setError ("Enter a valid aadhar number ");
-                    balanceEnquiryAadharNumber.requestFocus ();
-                } else if (balanceEnquiryAadharNumber.getText ().toString ().length () < 12 || balanceEnquiryAadharNumber.getText ().toString ().length () > 12) {
-                    balanceEnquiryAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
-                    balanceEnquiryAadharNumber.requestFocus ();
-                } else {
-                    getAadharDetails ();
-                }
-            }
-        });
+//        imageButtonFIngerprint.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                if (balanceEnquiryAadharNumber.getText ().toString ().isEmpty ()) {
+//                    balanceEnquiryAadharNumber.setError ("Enter a valid aadhar number ");
+//                    balanceEnquiryAadharNumber.requestFocus ();
+//                } else if (balanceEnquiryAadharNumber.getText ().toString ().length () < 12 || balanceEnquiryAadharNumber.getText ().toString ().length () > 12) {
+//                    balanceEnquiryAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
+//                    balanceEnquiryAadharNumber.requestFocus ();
+//                } else {
+//                    getAadharDetails ();
+//                }
+//            }
+//        });
 
-        buttonBalanceEnquiry.setOnClickListener (new View.OnClickListener () {
+// fingerprint authentication
+        executor = ContextCompat.getMainExecutor (this);
+        biometricPrompt = new BiometricPrompt (BalanceEnquiryActivity.this,
+                executor, new BiometricPrompt.AuthenticationCallback () {
+            @Override
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError (errorCode, errString);
+                Toast.makeText (getApplicationContext (),
+                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show ();
+            }
+
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onClick(View v) {
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded (result);
+
+                //Custom logic
+
+
+                getBalance ();
+                Toast.makeText (getApplicationContext (),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show ();
+
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed ();
+                Toast.makeText (getApplicationContext (), "Authentication failed",
+                        Toast.LENGTH_SHORT)
+                        .show ();
+            }
+        });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder ()
+                .setTitle ("Biometric Authentication for Mint")
+                .setSubtitle ("Log in using your biometric credential")
+                .setNegativeButtonText ("Cancel")
+                .build ();
+
+        // Prompt appears when user clicks "Log in".
+        // Consider integrating with the keystore to unlock cryptographic operations,
+        // if needed by your app.
+        buttonBalanceEnquiry.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
                 if (balanceEnquiryAadharNumber.getText ().toString ().isEmpty ()) {
                     balanceEnquiryAadharNumber.setError ("Enter a valid aadhar number ");
                     balanceEnquiryAadharNumber.requestFocus ();
@@ -148,13 +201,41 @@ public class BalanceEnquiryActivity extends MySessionActivity {
                     balanceEnquiryAccountNumber.setError("Please Enter amount  ");
                     balanceEnquiryAccountNumber.requestFocus();
                 }
-                else if(textViewFingerprint.getText ().toString () == "") {
-                    Toast.makeText (BalanceEnquiryActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
-                } else {
-                    getBalance ();
+//                else if(textViewFingerprint.getText ().toString () == "") {
+//                    Toast.makeText (BalanceEnquiryActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
+//                }
+                else {
+                    biometricPrompt.authenticate (promptInfo);
                 }
             }
         });
+
+
+
+//        buttonBalanceEnquiry.setOnClickListener (new View.OnClickListener () {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onClick(View v) {
+//                if (balanceEnquiryAadharNumber.getText ().toString ().isEmpty ()) {
+//                    balanceEnquiryAadharNumber.setError ("Enter a valid aadhar number ");
+//                    balanceEnquiryAadharNumber.requestFocus ();
+//                } else if (balanceEnquiryAadharNumber.getText ().toString ().length () < 12 || balanceEnquiryAadharNumber.getText ().toString ().length () > 12) {
+//                    balanceEnquiryAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
+//                    balanceEnquiryAadharNumber.requestFocus ();
+//                }
+//
+//                else if(balanceEnquiryAccountNumber.getText().toString().isEmpty() )
+//                {
+//                    balanceEnquiryAccountNumber.setError("Please Enter amount  ");
+//                    balanceEnquiryAccountNumber.requestFocus();
+//                }
+//                else if(textViewFingerprint.getText ().toString () == "") {
+//                    Toast.makeText (BalanceEnquiryActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
+//                } else {
+//                    getBalance ();
+//                }
+//            }
+//        });
 
 //    balanceEnquiryAadharNumber.addTextChangedListener (new TextWatcher () {
 //        @Override
@@ -198,40 +279,40 @@ public class BalanceEnquiryActivity extends MySessionActivity {
 
 
 
-    public void getAadharDetails(){
-            Retrofit retrofit = new Retrofit.Builder ().
-                    baseUrl("http://192.168.42.37:8080/AadharApi/")
-                    .addConverterFactory (GsonConverterFactory.create ())
-                    .build ();
-            AadharApi aadharApi = retrofit.create (AadharApi.class);
-
-            final String aadharNo = balanceEnquiryAadharNumber.getText ().toString ();
-
-
-            Call<Aadhar> aCall = aadharApi.getAadharDetails (aadharNo);
-
-            aCall.enqueue (new Callback<Aadhar> () {
-                @Override
-                public void onResponse(Call<Aadhar> aCall, Response<Aadhar> response) {
-                    if (!response.isSuccessful ()){
-                        Toast.makeText (getApplicationContext (), response.code (), Toast.LENGTH_LONG).show ();
-                        return;
-                    }
-
-                    Aadhar details = response.body ();
-                    if(details.getAadharNumber ().equals (aadharNo)) {
-                        textViewFingerprint.setText (details.getFingerprint ());
-                    }else{
-                        Toast.makeText (getApplicationContext (), "Enter a valid Aadhar Number", Toast.LENGTH_LONG).show ();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Aadhar> aCall, Throwable t) {
-                    Toast.makeText (getApplicationContext (), "Enter a Valid Aadhar Number", Toast.LENGTH_LONG).show ();
-                }
-            });
-    }
+//    public void getAadharDetails(){
+//            Retrofit retrofit = new Retrofit.Builder ().
+//                    baseUrl("http://192.168.42.242:8080/AadharApi/")
+//                    .addConverterFactory (GsonConverterFactory.create ())
+//                    .build ();
+//            AadharApi aadharApi = retrofit.create (AadharApi.class);
+//
+//            final String aadharNo = balanceEnquiryAadharNumber.getText ().toString ();
+//
+//
+//            Call<Aadhar> aCall = aadharApi.getAadharDetails (aadharNo);
+//
+//            aCall.enqueue (new Callback<Aadhar> () {
+//                @Override
+//                public void onResponse(Call<Aadhar> aCall, Response<Aadhar> response) {
+//                    if (!response.isSuccessful ()){
+//                        Toast.makeText (getApplicationContext (), response.code (), Toast.LENGTH_LONG).show ();
+//                        return;
+//                    }
+//
+//                    Aadhar details = response.body ();
+//                    if(details.getAadharNumber ().equals (aadharNo)) {
+//                        textViewFingerprint.setText (details.getFingerprint ());
+//                    }else{
+//                        Toast.makeText (getApplicationContext (), "Enter a valid Aadhar Number", Toast.LENGTH_LONG).show ();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Aadhar> aCall, Throwable t) {
+//                    Toast.makeText (getApplicationContext (), "Enter a Valid Aadhar Number", Toast.LENGTH_LONG).show ();
+//                }
+//            });
+//    }
 
 
 
@@ -239,7 +320,7 @@ public class BalanceEnquiryActivity extends MySessionActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getBalance(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.37:8080/Mint/")
+                baseUrl("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         BalanceEnquiryApi balaneEnqiryApi = retrofit.create (BalanceEnquiryApi.class);

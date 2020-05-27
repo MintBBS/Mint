@@ -53,12 +53,17 @@ public class FundTransferOutputActivity extends AppCompatActivity {
 
         Intent intent = getIntent ();
         String fundTransferAccountNo =  intent.getStringExtra ("transferAccountNumber");
+
+        String value1 = fundTransferAccountNo.substring(1,9);
+        String value2 = value1.replace(value1,"******") + fundTransferAccountNo.substring(6,9);
+        fundTransferAccountNumber.setText(value2);
+
         String fundTransferRRN = intent.getStringExtra ("transferRrn");
         String fundTransferAmount1 = intent.getStringExtra ("transferAmount");
         String fundTransferDate1 = intent.getStringExtra ("transferDate");
 
 
-        fundTransferAccountNumber.setText (fundTransferAccountNo);
+        //fundTransferAccountNumber.setText (fundTransferAccountNo);
         transactionType.setText ("AEPS Funds Transfer");
         //withdrawAvailableBalance.setText (withdraw.);
         fundTransferRrn.setText (fundTransferRRN);

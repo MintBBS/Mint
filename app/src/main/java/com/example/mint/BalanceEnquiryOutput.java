@@ -56,10 +56,16 @@ public class BalanceEnquiryOutput extends AppCompatActivity {
 
         Intent intent = getIntent ();
         String accountNo = intent.getStringExtra ("balanceEnquiryAccountNumber");
+
+        String value1 = accountNo.substring(1,9);
+        String value2 = value1.replace(value1,"******") + accountNo.substring(6,9);
+        accountNumberBalanceEnquiry.setText(value2);
+
+
         String type = intent.getStringExtra ("transactionType");
         String accountBalance = intent.getStringExtra ("balanceEnquiryAccountBalance");
 
-        accountNumberBalanceEnquiry.setText (accountNo);
+       // accountNumberBalanceEnquiry.setText (accountNo);
         transactionTypeBalanceEnquiry.setText (type);
         accountBalanceBalanceEnquiry.setText (accountBalance + " INR");
 

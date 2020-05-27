@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Base64;
+import java.util.concurrent.Executor;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -43,7 +45,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+import androidx.biometric.BiometricPrompt;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+
+
     TextView agentID;
     EditText password;
     Button loginButton;
@@ -70,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String aesEncryptionAlgorithem = "AES";
 
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -78,31 +89,81 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView (R.layout.activity_main);
 
-
-
-
         agentID = (TextView) findViewById (R.id.textViewImeiNumber);
         password = (EditText) findViewById (R.id.editTextPassword);
         loginButton = (Button) findViewById (R.id.buttonLogin);
-
-        imgBtn = (ImageButton) findViewById(R.id.imageButtonMainpageFingerprint);
+        imgBtn = (ImageButton) findViewById (R.id.imageButtonMainpageFingerprint);
         fingerprintString = (TextView) findViewById (R.id.textViewMainPageFingerprintString);
-
         showHidePass = (CheckBox) findViewById (R.id.checkboxPassword);
-
         forgotPassword = (TextView) findViewById (R.id.textViewForgetPassword);
-
         textViewTimer = (TextView) findViewById (R.id.textViewTimer);
 
         textViewTimer.setText ("");
 
-        fingerprintString.setOnClickListener (new View.OnClickListener () {
+        executor = ContextCompat.getMainExecutor (this);
+        biometricPrompt = new BiometricPrompt (MainActivity.this,
+                executor, new BiometricPrompt.AuthenticationCallback () {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (getApplicationContext (), HomepageActivity.class);
-                startActivity (intent);
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError (errorCode, errString);
+                Toast.makeText (getApplicationContext (),
+                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show ();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded (result);
+
+                //Custom logic
+
+
+                    validateUserCredential ();
+                    Toast.makeText (getApplicationContext (),
+                            "Authentication succeeded!", Toast.LENGTH_SHORT).show ();
+
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed ();
+                Toast.makeText (getApplicationContext (), "Authentication failed",
+                        Toast.LENGTH_SHORT)
+                        .show ();
             }
         });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder ()
+                .setTitle ("Biometric Authentication for Mint")
+                .setSubtitle ("Log in using your biometric credential")
+                .setNegativeButtonText ("Use account password")
+                .build ();
+
+        // Prompt appears when user clicks "Log in".
+        // Consider integrating with the keystore to unlock cryptographic operations,
+        // if needed by your app.
+        loginButton.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                if (password.getText ().toString ().isEmpty ()) {
+                    password.setError ("Please Fill the Password");
+                    password.requestFocus ();
+                } else {
+                    biometricPrompt.authenticate (promptInfo);
+                }
+            }
+        });
+
+
+//        fingerprintString.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent (getApplicationContext (), HomepageActivity.class);
+//                startActivity (intent);
+//            }
+//        });
 
         int permissionCheck = ContextCompat.checkSelfPermission (this, Manifest.permission.READ_PHONE_STATE);
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -129,32 +190,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // login button
+        // login button for validate and proceed to otp page
 
-        loginButton.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                if(password.getText ().toString ().isEmpty ()) {
-                    password.setError ("Please Fill the Password");
-                    password.requestFocus ();
-                }
-                else if(fingerprintString.getText ().toString ().isEmpty ()){
-                    Toast.makeText (MainActivity.this, "fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
-                }
-                else {
-                    validateUser ();
-                }
+//        loginButton.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                if(password.getText ().toString ().isEmpty ()) {
+//                    password.setError ("Please Fill the Password");
+//                    password.requestFocus ();
+//                }
+//                else if(fingerprintString.getText ().toString ().isEmpty ()){
+//                    Toast.makeText (MainActivity.this, "fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
+//                }
+//                else {
+//                    validateUser ();
+//                }
+//
+//            }
+//        });
 
-            }
-        });
 
         // fingerprint button
-        imgBtn.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                validateFingerprint ();
-            }
-        });
+//        imgBtn.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                validateFingerprint ();
+//            }
+//        });
 
         //forget password button
         forgotPassword.setOnClickListener (new View.OnClickListener () {
@@ -208,7 +270,84 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+//login without fingerprint string
+    public void validateUserCredential(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl ("http://192.168.42.103:8080/Mint/")
+                .addConverterFactory (GsonConverterFactory.create ())
+                .build ();
 
+        LoginApi loginApi =retrofit.create (LoginApi.class);
+
+        final String userName = agentID.getText ().toString ();
+        String passWord = password.getText ().toString ();
+
+        Call<User> call = loginApi.validateUserCredential (userName, passWord);
+
+        call.enqueue (new Callback<User> () {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+//                if(!response.isSuccessful ()) {
+//                    Toast.makeText (getApplicationContext (), "Please Enter Valid Credentials :" + response.code (), Toast.LENGTH_LONG).show ();
+//                    return;
+//                }
+                User message = response.body ();
+
+                String passWord = password.getText ().toString ();
+                String agentId = agentID.getText ().toString ();
+
+
+                String mobileNumber = message.getMobileNumber ();
+
+
+                if(passWord.equals (message.getPassword ()) && agentId.equals (message.getAgentId ())) {
+                    // Toast.makeText (MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show ();
+
+                    Intent intent = new Intent (getApplicationContext (), HomepageActivity.class);
+                    intent.putExtra ("agentId", userName);
+                    intent.putExtra ("mobileNumber", mobileNumber);
+                    startActivity (intent);
+                }
+                else if(message.getPassword () == null){
+
+                    attempt_counter--;
+                    textViewTimer.setTextColor (Color.RED);
+                    textViewTimer.setText(String.valueOf("Attempt left : " + attempt_counter));
+
+                    if (attempt_counter == 0) {
+                        loginButton.setEnabled(false);
+                        counter = 30;
+                        new CountDownTimer (30000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                loginButton.setEnabled(false);
+                                textViewTimer.setTextColor (Color.rgb (255,157,0));
+                                textViewTimer.setText(("You can login in - " + "00:"+ counter));
+                                counter--;
+                            }
+
+                            public void onFinish() {
+                                loginButton.setEnabled(true);
+                                attempt_counter = 3;
+                                textViewTimer.setTextColor (Color.rgb (50,205,50));
+                                textViewTimer.setText("You Can Login Now");
+                            }
+                        }.start();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText (getApplicationContext (), t.getMessage (), Toast.LENGTH_LONG).show ();
+            }
+        });
+    }
+
+
+
+//login with fingerprint string
     public void validateUser(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl ("http://192.168.42.242:8080/Mint/")
@@ -292,45 +431,45 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void validateFingerprint(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl ("http://192.168.42.242:8080/Mint/")
-                .addConverterFactory (ScalarsConverterFactory.create ())
-                .addConverterFactory (GsonConverterFactory.create ())
-                .build ();
-
-        FingerprintApi fingerprintApi =retrofit.create (FingerprintApi.class);
-
-        final String userName = agentID.getText ().toString ();
-
-
-        Call<User> call = fingerprintApi.validateFingerPrint (userName);
-
-        call.enqueue (new Callback<User> () {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-
-                if(!response.isSuccessful ()) {
-                    Toast.makeText (getApplicationContext (), "Please Enter Valid Credentials :" + response.code (), Toast.LENGTH_LONG).show ();
-                    return;
-                }
-                User message = response.body ();
-                if(message.getFingerprint () != null) {
-                    String encodedFingerprintString = encrypt (message.getFingerprint ());
-                    fingerprintString.setText (encodedFingerprintString);
-                   // fingerprintString.setText (message.getFingerprint ());
-                }else{
-                    Toast.makeText (getApplicationContext (), "Fingerprint Authentication Error", Toast.LENGTH_SHORT).show ();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText (getApplicationContext (),t.getMessage (), Toast.LENGTH_LONG).show ();
-            }
-        });
-    }
+//    public void validateFingerprint(){
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl ("http://192.168.42.242:8080/Mint/")
+//                .addConverterFactory (ScalarsConverterFactory.create ())
+//                .addConverterFactory (GsonConverterFactory.create ())
+//                .build ();
+//
+//        FingerprintApi fingerprintApi =retrofit.create (FingerprintApi.class);
+//
+//        final String userName = agentID.getText ().toString ();
+//
+//
+//        Call<User> call = fingerprintApi.validateFingerPrint (userName);
+//
+//        call.enqueue (new Callback<User> () {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//
+//                if(!response.isSuccessful ()) {
+//                    Toast.makeText (getApplicationContext (), "Please Enter Valid Credentials :" + response.code (), Toast.LENGTH_LONG).show ();
+//                    return;
+//                }
+//                User message = response.body ();
+//                if(message.getFingerprint () != null) {
+//                    String encodedFingerprintString = encrypt (message.getFingerprint ());
+//                    fingerprintString.setText (encodedFingerprintString);
+//                   // fingerprintString.setText (message.getFingerprint ());
+//                }else{
+//                    Toast.makeText (getApplicationContext (), "Fingerprint Authentication Error", Toast.LENGTH_SHORT).show ();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                Toast.makeText (getApplicationContext (),t.getMessage (), Toast.LENGTH_LONG).show ();
+//            }
+//        });
+//    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String encrypt(String plainText) {

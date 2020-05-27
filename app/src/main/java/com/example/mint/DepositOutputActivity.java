@@ -60,12 +60,17 @@ public class DepositOutputActivity extends AppCompatActivity {
 
         Intent intent = getIntent ();
         String depositAccountNo =  intent.getStringExtra ("depositAccountNumber");
+
+        String value1 = depositAccountNo.substring(1,9);
+        String value2 = value1.replace(value1,"******") + depositAccountNo.substring(6,9);
+        depositAccountNumber.setText(value2);
+
         String depositRRN = intent.getStringExtra ("depositRrn");
         String depositAmount1 = intent.getStringExtra ("depositAmount1");
         String depositDate1 = intent.getStringExtra ("depositDate");
 
 
-        depositAccountNumber.setText (depositAccountNo);
+       // depositAccountNumber.setText (depositAccountNo);
         transactionType.setText ("AEPS Deposit");
         //withdrawAvailableBalance.setText (withdraw.);
         depositRrn.setText (depositRRN);

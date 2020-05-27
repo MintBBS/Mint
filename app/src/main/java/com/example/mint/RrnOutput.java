@@ -48,7 +48,13 @@ public class RrnOutput extends AppCompatActivity {
         Button buttonPrintRrn = findViewById (R.id.buttonPrintRrnStatus);
 
         Intent intent = getIntent ();
-        rrnStatusAccountNumber.setText (intent.getStringExtra ("accountNumber"));
+        String accountNo = intent.getStringExtra ("accountNumber");
+       // rrnStatusAccountNumber.setText (intent.getStringExtra ("accountNumber"));
+
+        String value1 = accountNo.substring(1,9);
+        String value2 = value1.replace(value1,"******") + accountNo.substring(6,9);
+        rrnStatusAccountNumber.setText(value2);
+
         transactionType.setText (intent.getStringExtra ("type"));
         rrnStatusRrn.setText (intent.getStringExtra ("rrn"));
         rrnStatusAmount.setText (intent.getStringExtra ("amount") + " INR");

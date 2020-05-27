@@ -1,6 +1,9 @@
 package com.example.mint;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.concurrent.Executor;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +26,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AgentBalanceActivity extends MySessionActivity {
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+
 
     TextView agentId;
     TextView agentAccountNumber;
@@ -49,46 +59,69 @@ public class AgentBalanceActivity extends MySessionActivity {
 
         getAgentDetails ();
 
-        fingerprint.setOnClickListener (new View.OnClickListener () {
+//        fingerprint.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                getAadharDetails ();
+//            }
+//        });
+
+        getAadharDetails ();
+
+        executor = ContextCompat.getMainExecutor (this);
+        biometricPrompt = new BiometricPrompt (AgentBalanceActivity.this,
+                executor, new BiometricPrompt.AuthenticationCallback () {
             @Override
-            public void onClick(View v) {
-                getAadharDetails ();
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError (errorCode, errString);
+                Toast.makeText (getApplicationContext (),
+                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show ();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded (result);
+
+                //Custom logic
+                getAgentBalance ();
+
+                Toast.makeText (getApplicationContext (),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show ();
+
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed ();
+                Toast.makeText (getApplicationContext (), "Authentication failed",
+                        Toast.LENGTH_SHORT)
+                        .show ();
             }
         });
 
+        promptInfo = new BiometricPrompt.PromptInfo.Builder ()
+                .setTitle ("Biometric Authentication for Mint")
+                .setSubtitle ("Log in using your biometric credential")
+                .setNegativeButtonText ("Use account password")
+                .build ();
+
+        // Prompt appears when user clicks "Log in".
+        // Consider integrating with the keystore to unlock cryptographic operations,
+        // if needed by your app.
         agentBalanceButton.setOnClickListener (new View.OnClickListener () {
             @Override
-            public void onClick(View v) {
-                if(fingerprintString.getText ().toString () == "") {
-                    Toast.makeText (AgentBalanceActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
-                } else {
-                    getAgentBalance ();
-                }
-            }
-        });
-
-
-        agentAccountNumber.addTextChangedListener (new TextWatcher () {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                biometricPrompt.authenticate (promptInfo);
             }
         });
     }
 
     public void getAgentDetails(){
             Retrofit retrofit = new Retrofit.Builder ().
-                    baseUrl("http://192.168.42.37:8080/Mint/")
+                    baseUrl("http://192.168.42.103:8080/Mint/")
                     .addConverterFactory (GsonConverterFactory.create ())
                     .build ();
             AgentAccountDetailsApi agentAccountDetailsApi = retrofit.create (AgentAccountDetailsApi.class);
@@ -142,12 +175,8 @@ public class AgentBalanceActivity extends MySessionActivity {
                 }
 
                 Aadhar details = response.body ();
-                if(details.getAadharNumber ().equals (aadharNo)) {
-                    fingerprintString.setText (details.getFingerprint ());
                     agentName = details.getName ();
-                }else{
-                    Toast.makeText (getApplicationContext (), "Enter a valid Aadhar Number", Toast.LENGTH_LONG).show ();
-                }
+
             }
 
             @Override
@@ -157,9 +186,10 @@ public class AgentBalanceActivity extends MySessionActivity {
         });
     }
 
+
     public void getAgentBalance(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.37:8080/Mint/")
+                baseUrl("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         AgentAccountDetailsApi agentAccountDetailsApi = retrofit.create (AgentAccountDetailsApi.class);

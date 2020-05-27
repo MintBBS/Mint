@@ -1,9 +1,14 @@
 package com.example.mint;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +34,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FundstransferActivity extends MySessionActivity {
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
 
     Spinner spinner;
     String[] bank = {"Choose Bank", "UCO"};
@@ -59,8 +69,8 @@ public class FundstransferActivity extends MySessionActivity {
         editTextFundTransferBeneficiaryAccountNumber = (EditText) findViewById (R.id.editTextFundTransferBenificiaryAccount);
         buttonFundTransfer = (Button) findViewById (R.id.buttonFundTransfer);
 
-        textViewFingerprint = (TextView) findViewById (R.id.textViewFundTransferFingerprint);
-        imageButtonFIngerprint = (ImageButton) findViewById (R.id.imageButtonFundTransferFingerprint);
+       // textViewFingerprint = (TextView) findViewById (R.id.textViewFundTransferFingerprint);
+       // imageButtonFIngerprint = (ImageButton) findViewById (R.id.imageButtonFundTransferFingerprint);
 
 
         spinner = (Spinner) findViewById(R.id.fundTransferSpinner);
@@ -98,38 +108,81 @@ public class FundstransferActivity extends MySessionActivity {
         spinner.setAdapter(arrayadapter);
 
 
-        textViewFingerprint.setOnClickListener (new View.OnClickListener () {
+//        textViewFingerprint.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent (getApplicationContext (), FundTransferOutputActivity.class);
+//                startActivity (intent);
+//            }
+//        });
+
+
+//        imageButtonFIngerprint.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                if (editTextFundTransferAadharNumber.getText ().toString ().isEmpty ()) {
+//                    editTextFundTransferAadharNumber.setError ("Enter a valid aadhar number ");
+//                    editTextFundTransferAadharNumber.requestFocus ();
+//                } else if (editTextFundTransferAadharNumber.getText ().toString ().length () < 12 || editTextFundTransferAadharNumber.getText ().toString ().length () > 12) {
+//                    editTextFundTransferAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
+//                    editTextFundTransferAadharNumber.requestFocus ();
+//                }else {
+//                    getAadharDetails ();
+//                }
+//            }
+//        });
+
+
+        //fingerprint authentication
+        executor = ContextCompat.getMainExecutor (this);
+        biometricPrompt = new BiometricPrompt (FundstransferActivity.this,
+                executor, new BiometricPrompt.AuthenticationCallback () {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (getApplicationContext (), FundTransferOutputActivity.class);
-                startActivity (intent);
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError (errorCode, errString);
+                Toast.makeText (getApplicationContext (),
+                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show ();
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded (result);
+
+                //Custom logic
+
+
+                fundTransfer ();
+                Toast.makeText (getApplicationContext (),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show ();
+
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed ();
+                Toast.makeText (getApplicationContext (), "Authentication failed",
+                        Toast.LENGTH_SHORT)
+                        .show ();
             }
         });
 
-        imageButtonFIngerprint.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                if (editTextFundTransferAadharNumber.getText ().toString ().isEmpty ()) {
-                    editTextFundTransferAadharNumber.setError ("Enter a valid aadhar number ");
-                    editTextFundTransferAadharNumber.requestFocus ();
-                } else if (editTextFundTransferAadharNumber.getText ().toString ().length () < 12 || editTextFundTransferAadharNumber.getText ().toString ().length () > 12) {
-                    editTextFundTransferAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
-                    editTextFundTransferAadharNumber.requestFocus ();
-                }else {
-                    getAadharDetails ();
-                }
-            }
-        });
+        promptInfo = new BiometricPrompt.PromptInfo.Builder ()
+                .setTitle ("Biometric Authentication for Mint")
+                .setSubtitle ("Log in using your biometric credential")
+                .setNegativeButtonText ("Cancel")
+                .build ();
 
+        // Prompt appears when user clicks "Log in".
+        // Consider integrating with the keystore to unlock cryptographic operations,
+        // if needed by your app.
         buttonFundTransfer.setOnClickListener (new View.OnClickListener () {
             @Override
-            public void onClick(View v) {
-//                if(textViewFingerprint.getText().toString().isEmpty())
-//                {
-//                    Toast.makeText (FundstransferActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_SHORT).show ();
-//                }
-
-                 if (editTextFundTransferAadharNumber.getText ().toString ().isEmpty ()) {
+            public void onClick(View view) {
+                if (editTextFundTransferAadharNumber.getText ().toString ().isEmpty ()) {
                     editTextFundTransferAadharNumber.setError ("Enter a valid aadhar number ");
                     editTextFundTransferAadharNumber.requestFocus ();
                 }
@@ -170,62 +223,122 @@ public class FundstransferActivity extends MySessionActivity {
                     editTextFundTransferAmount.setError ("Maximum amount should be  Rs 10000 ");
                     editTextFundTransferAmount.requestFocus ();
                 }
-                else if ((Integer.parseInt (editTextFundTransferAmount.getText ().toString ()) < 100)) {
+                else if ((Double.parseDouble (editTextFundTransferAmount.getText ().toString ()) < 100)) {
                     editTextFundTransferAmount.setError ("Minimum amount should be  Rs 100 ");
                     editTextFundTransferAmount.requestFocus ();
 
                 }
-                else if (textViewFingerprint.getText ().toString ().trim () == ""){
-                    Toast.makeText (FundstransferActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
-                }
                 else {
-                    fundTransfer ();
+                    biometricPrompt.authenticate (promptInfo);
                 }
-                }
+            }
         });
 
-    }
-
-
-    public void getAadharDetails(){
-        Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.37:8080/AadharApi/")
-                .addConverterFactory (GsonConverterFactory.create ())
-                .build ();
-        AadharApi aadharApi = retrofit.create (AadharApi.class);
-
-        final String aadharNo = editTextFundTransferAadharNumber.getText ().toString ();
-
-
-        Call<Aadhar> aCall = aadharApi.getAadharDetails (aadharNo);
-
-        aCall.enqueue (new Callback<Aadhar> () {
-            @Override
-            public void onResponse(Call<Aadhar> aCall, Response<Aadhar> response) {
-                if (!response.isSuccessful ()){
-                    Toast.makeText (getApplicationContext (), response.code (), Toast.LENGTH_LONG).show ();
-                    return;
-                }
-
-                Aadhar details = response.body ();
-                if(details.getAadharNumber ().equals (aadharNo)) {
-                    textViewFingerprint.setText (details.getFingerprint ());
-                }
-//                else if(editTextFundTransferAadharNumber.getText().toString () == ""){
-//                    Toast.makeText (getApplicationContext (), "Enter A valid Aadhar Number", Toast.LENGTH_SHORT).show ();
+//        buttonFundTransfer.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+////                if(textViewFingerprint.getText().toString().isEmpty())
+////                {
+////                    Toast.makeText (FundstransferActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_SHORT).show ();
+////                }
+//
+//                 if (editTextFundTransferAadharNumber.getText ().toString ().isEmpty ()) {
+//                    editTextFundTransferAadharNumber.setError ("Enter a valid aadhar number ");
+//                    editTextFundTransferAadharNumber.requestFocus ();
 //                }
-            }
+//
+//                else if (editTextFundTransferAadharNumber.getText ().toString ().length () < 12 || editTextFundTransferAadharNumber.getText ().toString ().length () > 12) {
+//                    editTextFundTransferAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
+//                    editTextFundTransferAadharNumber.requestFocus ();
+//                }
+//
+//                else if (editTextFundTransferAccountNumber.getText ().toString ().isEmpty ()) {
+//                    editTextFundTransferAccountNumber.setError ("Please Enter Account Number  ");
+//                    editTextFundTransferAccountNumber.requestFocus ();
+//                }
+//
+//                else  if (editTextFundTransferBeneficiaryAadharNumber.getText ().toString ().isEmpty ()) {
+//                    editTextFundTransferBeneficiaryAadharNumber.setError ("Enter a valid aadhar number ");
+//                    editTextFundTransferBeneficiaryAadharNumber.requestFocus ();
+//                }
+//                else if (editTextFundTransferBeneficiaryAadharNumber.getText ().toString ().length () < 12 || editTextFundTransferBeneficiaryAadharNumber.getText ().toString ().length () > 12) {
+//                    editTextFundTransferBeneficiaryAadharNumber.setError ("Aadhar Number Should Be 12 Digit ");
+//                    editTextFundTransferBeneficiaryAadharNumber.requestFocus ();
+//                }
+//                else if (editTextFundTransferBeneficiaryAccountNumber.getText ().toString ().isEmpty ()) {
+//                    editTextFundTransferBeneficiaryAccountNumber.setError ("Enter a valid account number ");
+//                    editTextFundTransferBeneficiaryAccountNumber.requestFocus ();
+//                }
+//
+//                else if (editTextFundTransferAccountNumber.getText ().toString ().equals (editTextFundTransferBeneficiaryAccountNumber.getText ().toString ())){
+//                    editTextFundTransferBeneficiaryAccountNumber.setError ("Account Number Should Not Same");
+//                    editTextFundTransferBeneficiaryAccountNumber.requestFocus ();
+//                }
+//
+//                else if (editTextFundTransferAmount.getText ().toString ().isEmpty ()) {
+//                    editTextFundTransferAmount.setError ("Please Enter amount  ");
+//                    editTextFundTransferAmount.requestFocus ();
+//                }
+//                else if ((Double.parseDouble (editTextFundTransferAmount.getText ().toString ()) > 10000)) {
+//                    editTextFundTransferAmount.setError ("Maximum amount should be  Rs 10000 ");
+//                    editTextFundTransferAmount.requestFocus ();
+//                }
+//                else if ((Integer.parseInt (editTextFundTransferAmount.getText ().toString ()) < 100)) {
+//                    editTextFundTransferAmount.setError ("Minimum amount should be  Rs 100 ");
+//                    editTextFundTransferAmount.requestFocus ();
+//
+//                }
+//                else if (textViewFingerprint.getText ().toString ().trim () == ""){
+//                    Toast.makeText (FundstransferActivity.this, "Fingerprint Authentication Failed", Toast.LENGTH_LONG).show ();
+//                }
+//                else {
+//                    fundTransfer ();
+//                }
+//                }
+//        });
 
-            @Override
-            public void onFailure(Call<Aadhar> aCall, Throwable t) {
-                Toast.makeText (getApplicationContext (),"Please Enter Valid Aadhar Number", Toast.LENGTH_LONG).show ();
-            }
-        });
     }
+
+
+//    public void getAadharDetails(){
+//        Retrofit retrofit = new Retrofit.Builder ().
+//                baseUrl("http://192.168.42.37:8080/AadharApi/")
+//                .addConverterFactory (GsonConverterFactory.create ())
+//                .build ();
+//        AadharApi aadharApi = retrofit.create (AadharApi.class);
+//
+//        final String aadharNo = editTextFundTransferAadharNumber.getText ().toString ();
+//
+//
+//        Call<Aadhar> aCall = aadharApi.getAadharDetails (aadharNo);
+//
+//        aCall.enqueue (new Callback<Aadhar> () {
+//            @Override
+//            public void onResponse(Call<Aadhar> aCall, Response<Aadhar> response) {
+//                if (!response.isSuccessful ()){
+//                    Toast.makeText (getApplicationContext (), response.code (), Toast.LENGTH_LONG).show ();
+//                    return;
+//                }
+//
+//                Aadhar details = response.body ();
+//                if(details.getAadharNumber ().equals (aadharNo)) {
+//                    textViewFingerprint.setText (details.getFingerprint ());
+//                }
+////                else if(editTextFundTransferAadharNumber.getText().toString () == ""){
+////                    Toast.makeText (getApplicationContext (), "Enter A valid Aadhar Number", Toast.LENGTH_SHORT).show ();
+////                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Aadhar> aCall, Throwable t) {
+//                Toast.makeText (getApplicationContext (),"Please Enter Valid Aadhar Number", Toast.LENGTH_LONG).show ();
+//            }
+//        });
+//    }
 
     public void fundTransfer(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.37:8080/Mint/")
+                baseUrl ("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
          FundsTransferApi fundTransferApi = retrofit.create (FundsTransferApi.class);

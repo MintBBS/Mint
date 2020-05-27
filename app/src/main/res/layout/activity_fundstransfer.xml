@@ -165,26 +165,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/editTextFundTransferAccountNumber"
                 app:layout_constraintVertical_bias="0.031" />
 
-            <TextView
-                android:id="@+id/textViewFundTransferFingerprint"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="50dp"
-                android:background="@drawable/edittext"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="20dp"
-                android:paddingTop="16dp"
-                android:textColor="#000"
-                android:textSize="17dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextFundTransferBenificiaryAccount"
-                app:layout_constraintVertical_bias="0.037" />
-
-
         </LinearLayout>
     </ScrollView>
 
@@ -201,18 +181,6 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollView3"
         app:layout_constraintVertical_bias="0.129" />
 
-    <ImageButton
-        android:id="@+id/imageButtonFundTransferFingerprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittext"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFundTransfer"
-        app:layout_constraintVertical_bias="0.144"
-        app:srcCompat="@drawable/fingerprint" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

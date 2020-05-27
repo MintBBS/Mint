@@ -88,12 +88,13 @@
         android:paddingTop="16dp"
         android:textColor="#000"
         android:textSize="17dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMiniStatementAccountNo"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintVertical_bias="0.948" />
 
     <Button
         android:id="@+id/buttonMiniStatement"
@@ -105,8 +106,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMiniStatementFingerprint"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextMiniStatementAccountNo"
+        app:layout_constraintVertical_bias="0.058" />
 
     <Spinner
         android:id="@+id/miniStatementSpinner"
@@ -118,12 +119,13 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintVertical_bias="0.13" />
 
     <ImageButton
         android:id="@+id/imageButtonMiniStatementFingerprint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:layout_marginBottom="4dp"
         android:background="@drawable/edittext"
         app:layout_constraintBottom_toBottomOf="parent"
