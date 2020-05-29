@@ -29,6 +29,8 @@
         app:layout_constraintVertical_bias="0.025"
         app:srcCompat="@drawable/transaction_report" />
 
+
+
     <TextView
         android:id="@+id/textView11"
         android:layout_width="247dp"
@@ -43,34 +45,103 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.053" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="357dp"
-        android:layout_height="401dp"
-        android:background="@drawable/border"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_marginBottom="420dp"
+        android:layout_width="364dp"
+        android:layout_height="110dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.136" />
+        app:layout_constraintTop_toBottomOf="@+id/view4">
+
+        <LinearLayout
+            android:layout_width="125dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="20dp"
+                android:text="Total Transaction"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/textViewTotalTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="20dp"
+                android:text="Total Amount"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/textViewTotalAmount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="20dp"
+                android:textAlignment="center"
+                android:text="Date"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/textViewCurrentDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="356dp"
-        android:layout_height="399dp"
+        android:layout_width="355dp"
+        android:layout_height="342dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.142">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.14">
 
         <TextView
             android:id="@+id/textViewEodReport"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/edittext"
+            android:background="@drawable/border"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="20dp" />
@@ -85,9 +156,8 @@
         android:text="Generate Receipt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintVertical_bias="0.148" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.232" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

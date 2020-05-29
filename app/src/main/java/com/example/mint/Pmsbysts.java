@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -37,6 +38,11 @@ public class Pmsbysts extends AppCompatActivity {
     TextView scheme_id;
     Button printpmsby;
 
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
+    TextView currentDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -49,9 +55,15 @@ public class Pmsbysts extends AppCompatActivity {
         nomineeaadhar = findViewById(R.id.textViewPmsbyNomineeAadhar);
         scheme_id = findViewById(R.id.textViewPmsbySchemeId);
         printpmsby=findViewById(R.id.printpmsby);
+        currentDate = findViewById (R.id.textViewPmsbyDate);
+
+        calendar = Calendar.getInstance ();
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        date = dateFormat.format(calendar.getTime());
+        currentDate.setText(date);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.242:8080/Mint/")
+                .baseUrl("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         PmsbyApi pmsbyapi = retrofit.create(PmsbyApi.class);
@@ -124,6 +136,7 @@ public class Pmsbysts extends AppCompatActivity {
             String pdfText1 = nomineename.getText ().toString ();
             String pdfText2 =nomineeaadhar.getText ().toString ();
             String pdfText3 =scheme_id.getText ().toString ();
+            String pdfText4 = currentDate.getText ().toString ();
 
 
             mDoc.addTitle (String.valueOf (new Paragraph (heading)));
@@ -133,6 +146,7 @@ public class Pmsbysts extends AppCompatActivity {
             mDoc.add(new Paragraph(" Customer Account Number: " + pdfText));
             mDoc.add (new Paragraph ("Nominee Name : " + pdfText1));
             mDoc.add (new Paragraph ("Nominee Aadhar Number : " + pdfText2));
+            mDoc.add (new Paragraph ("Date : " + pdfText4));
             mDoc.close ();
             Toast.makeText(this, "saved" + mFilePath,Toast.LENGTH_LONG).show();
 

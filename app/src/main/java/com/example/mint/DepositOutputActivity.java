@@ -22,6 +22,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -42,6 +43,7 @@ public class DepositOutputActivity extends AppCompatActivity {
     TextView depositDate;
     TextView depositStatus;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -53,7 +55,6 @@ public class DepositOutputActivity extends AppCompatActivity {
         depositRrn = (TextView) findViewById (R.id.textViewDepositRRN);
         depositAmount = (TextView) findViewById (R.id.textViewDepositAmount);
         depositDate = (TextView) findViewById (R.id.textViewDepositDate);
-
         depositStatus = (TextView)findViewById (R.id.depositStatus);
 
         Button buttonPrintDeposit = findViewById (R.id.buttonPrintDeposit);

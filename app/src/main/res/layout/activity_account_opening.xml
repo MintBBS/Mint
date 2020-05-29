@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="0dp"
+        tools:context=".Account_Opening">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/acc_image"
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="50dp"
+                android:src="@drawable/accounting" />
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="102dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="30dp"
+                android:layout_toRightOf="@id/acc_image"
+                android:text="A/C     Opening"
+                android:textColor="#000000"
+                android:textSize="28dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/general"
+            android:textSize="30sp"
+            android:textColor="@color/colorAccent"
+            />
+
+
+
+        <EditText
+            android:id="@+id/fname"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:layout_marginLeft="30dp"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/lname"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
+            android:textSize="22sp" />
+
+
+        <EditText
+            android:id="@+id/age"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="number"
+            android:textSize="22sp" />
+
+
+        <EditText
+            android:id="@+id/dob"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Date of Birth"
+            android:textSize="22sp" />
+
+
+        <EditText
+            android:id="@+id/ifsc"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="IFSC"
+            android:inputType="text"
+            android:textSize="22sp" />
+
+
+        <EditText
+            android:id="@+id/aadhar"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Aadhar Number"
+            android:inputType="number"
+            android:textSize="22sp" />
+
+
+        <EditText
+            android:id="@+id/email"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/mobile"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Mobile Number"
+            android:inputType="number"
+            android:textSize="22sp" />
+
+
+        <EditText
+            android:id="@+id/father_name"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Father Name"
+            android:inputType="textPersonName"
+            android:textSize="22sp" />
+
+
+        <EditText
+            android:id="@+id/annual_income"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Annual Income"
+            android:inputType="numberDecimal"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Address:"/>
+        <EditText
+            android:id="@+id/area"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Area"
+            android:inputType="text"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/city"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="City"
+            android:inputType="text"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/state"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="State"
+            android:inputType="text"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/pincode"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Pincode"
+            android:inputType="number"
+            android:textSize="22sp" />
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nominee"
+            android:textSize="30sp"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/colorAccent"
+            />
+
+
+
+
+
+        <EditText
+            android:id="@+id/nominee_fname"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/nominee_lname"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
+            android:textSize="22sp" />
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Select Relationship:"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Address:"/>
+        <EditText
+            android:id="@+id/nominee_area"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Area"
+            android:inputType="text"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/nominee_city"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="City"
+            android:inputType="text"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/nominee_state"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="State"
+            android:inputType="text"
+            android:textSize="22sp" />
+        <EditText
+            android:id="@+id/nominee_pincode"
+            android:background="@drawable/edittext"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Pincode"
+            android:inputType="number"
+            android:textSize="22sp" />
+
+
+
+        <Button
+            android:id="@+id/register"
+            android:background="@drawable/button"
+            android:layout_width="163dp"
+            android:layout_height="64dp"
+            android:text="Register"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="40dp"
+            />
+
+    </LinearLayout>
+
+
+
+</ScrollView>

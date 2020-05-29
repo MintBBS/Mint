@@ -98,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
         forgotPassword = (TextView) findViewById (R.id.textViewForgetPassword);
         textViewTimer = (TextView) findViewById (R.id.textViewTimer);
 
+        agentID.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (getApplicationContext (), HomepageActivity.class);
+                startActivity (i);
+            }
+        });
+
         textViewTimer.setText ("");
 
         executor = ContextCompat.getMainExecutor (this);
@@ -347,89 +355,89 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//login with fingerprint string
-    public void validateUser(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl ("http://192.168.42.242:8080/Mint/")
-                .addConverterFactory (GsonConverterFactory.create ())
-                .build ();
-
-        LoginApi loginApi =retrofit.create (LoginApi.class);
-
-        final String userName = agentID.getText ().toString ();
-        String passWord = password.getText ().toString ();
-        String fingerprint = fingerprintString.getText ().toString ();
-
-        Call<User> call = loginApi.validateUser (userName, passWord, fingerprint);
-
-        call.enqueue (new Callback<User> () {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-
-//                if(!response.isSuccessful ()) {
-//                    Toast.makeText (getApplicationContext (), "Please Enter Valid Credentials :" + response.code (), Toast.LENGTH_LONG).show ();
+////login with fingerprint string
+//    public void validateUser(){
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl ("http://192.168.42.242:8080/Mint/")
+//                .addConverterFactory (GsonConverterFactory.create ())
+//                .build ();
+//
+//        LoginApi loginApi =retrofit.create (LoginApi.class);
+//
+//        final String userName = agentID.getText ().toString ();
+//        String passWord = password.getText ().toString ();
+//        String fingerprint = fingerprintString.getText ().toString ();
+//
+//        Call<User> call = loginApi.validateUser (userName, passWord, fingerprint);
+//
+//        call.enqueue (new Callback<User> () {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//
+////                if(!response.isSuccessful ()) {
+////                    Toast.makeText (getApplicationContext (), "Please Enter Valid Credentials :" + response.code (), Toast.LENGTH_LONG).show ();
+////                    return;
+////                }
+//                User message = response.body ();
+//
+//                String passWord = password.getText ().toString ();
+//                String fingerPrint = fingerprintString.getText ().toString ();
+//
+//                String decodedFingerprint = null;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                    decodedFingerprint = decrypt (fingerPrint);
+//                }
+//
+//                String mobileNumber = message.getMobileNumber ();
+//
+//                if(loginAttempts == 0) {
+//
+//                    Toast.makeText(MainActivity.this, "Your attempt reach 0, please wait 3 minutes to log in again", Toast.LENGTH_SHORT).show();
 //                    return;
 //                }
-                User message = response.body ();
-
-                String passWord = password.getText ().toString ();
-                String fingerPrint = fingerprintString.getText ().toString ();
-
-                String decodedFingerprint = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    decodedFingerprint = decrypt (fingerPrint);
-                }
-
-                String mobileNumber = message.getMobileNumber ();
-
-                if(loginAttempts == 0) {
-
-                    Toast.makeText(MainActivity.this, "Your attempt reach 0, please wait 3 minutes to log in again", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-                if(passWord.equals (message.getPassword ()) && decodedFingerprint.equals (message.getFingerprint ())) {
-                   // Toast.makeText (MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show ();
-
-                    Intent intent = new Intent (getApplicationContext (), OtpActivity.class);
-                    intent.putExtra ("agentId", userName);
-                    intent.putExtra ("mobileNumber", mobileNumber);
-                    startActivity (intent);
-                }
-                else if(message.getPassword () == null){
-
-                    attempt_counter--;
-                    textViewTimer.setText(String.valueOf("Attempt left : " + attempt_counter));
-
-                    if (attempt_counter == 0) {
-                        loginButton.setEnabled(false);
-                        counter = 30;
-                        new CountDownTimer (30000, 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                loginButton.setEnabled(false);
-                                textViewTimer.setText(("You can login in : " + counter + " Sec"));
-                                counter--;
-                            }
-
-                            public void onFinish() {
-                                loginButton.setEnabled(true);
-                                attempt_counter = 3;
-
-                                textViewTimer.setText("You Can Login Now");
-                            }
-                        }.start();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText (getApplicationContext (), t.getMessage (), Toast.LENGTH_LONG).show ();
-            }
-        });
-    }
+//
+//
+//                if(passWord.equals (message.getPassword ()) && decodedFingerprint.equals (message.getFingerprint ())) {
+//                   // Toast.makeText (MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show ();
+//
+//                    Intent intent = new Intent (getApplicationContext (), OtpActivity.class);
+//                    intent.putExtra ("agentId", userName);
+//                    intent.putExtra ("mobileNumber", mobileNumber);
+//                    startActivity (intent);
+//                }
+//                else if(message.getPassword () == null){
+//
+//                    attempt_counter--;
+//                    textViewTimer.setText(String.valueOf("Attempt left : " + attempt_counter));
+//
+//                    if (attempt_counter == 0) {
+//                        loginButton.setEnabled(false);
+//                        counter = 30;
+//                        new CountDownTimer (30000, 1000) {
+//                            public void onTick(long millisUntilFinished) {
+//                                loginButton.setEnabled(false);
+//                                textViewTimer.setText(("You can login in : " + counter + " Sec"));
+//                                counter--;
+//                            }
+//
+//                            public void onFinish() {
+//                                loginButton.setEnabled(true);
+//                                attempt_counter = 3;
+//
+//                                textViewTimer.setText("You Can Login Now");
+//                            }
+//                        }.start();
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                Toast.makeText (getApplicationContext (), t.getMessage (), Toast.LENGTH_LONG).show ();
+//            }
+//        });
+//    }
 
 //    public void validateFingerprint(){
 //        Retrofit retrofit = new Retrofit.Builder()

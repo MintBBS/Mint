@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MobileSeedingActivity"></activity>
+        <activity android:name=".RegisterSuccess"></activity>
+        <activity android:name=".Apydata" />
+        <activity android:name=".AccountOpeningActivity" />
+        <activity android:name=".MobileSeedingOtpActivity" />
+        <activity android:name=".MobileSeedingActivity" />
         <activity android:name=".Rdsts" />
         <activity android:name=".Pmsbysts" />
         <activity android:name=".RupayWithdrawOutput" />

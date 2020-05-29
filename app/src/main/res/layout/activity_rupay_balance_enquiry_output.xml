@@ -140,19 +140,21 @@
     <View
         android:id="@+id/view"
         android:layout_width="374dp"
-        android:layout_height="304dp"
+        android:layout_height="350dp"
         android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.405"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintVertical_bias="0.154" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="140dp"
         android:layout_height="48dp"
+        android:textColor="#000"
+        android:paddingTop="10dp"
         android:text="Card Number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -165,6 +167,7 @@
         android:id="@+id/textViewRupayBalanceEnquiryCardNumber"
         android:layout_width="202dp"
         android:layout_height="49dp"
+        android:paddingTop="10dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,5 +175,31 @@
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textViewRupayAccountBalance"
         app:layout_constraintVertical_bias="0.031" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:paddingTop="10dp"
+        android:text="Date : "
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.311" />
+
+    <TextView
+        android:id="@+id/textViewRupayBalanceEnquiryDate"
+        android:layout_width="179dp"
+        android:layout_height="48dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRupayBalanceEnquiryCardNumber"
+        app:layout_constraintVertical_bias="0.295" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

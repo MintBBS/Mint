@@ -84,6 +84,20 @@ public class HomepageActivity extends MySessionActivity {
             }
         });
 
+        mobileSeeding.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                getMobileSeedingPage ();
+            }
+        });
+
+        acOpening.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                getAccountOpeningPage ();
+            }
+        });
+
     }
 
     @Override
@@ -138,6 +152,16 @@ public class HomepageActivity extends MySessionActivity {
 
     public void getSchemeHomePage(){
         Intent intent = new Intent (getApplicationContext (), SchemeHomepageActivity.class);
+        startActivity (intent);
+    }
+
+    public void getMobileSeedingPage(){
+        Intent intent = new Intent (getApplicationContext (), MobileSeedingActivity.class);
+        startActivity (intent);
+    }
+
+    public void getAccountOpeningPage(){
+        Intent intent = new Intent (getApplicationContext (), AccountOpeningActivity.class);
         startActivity (intent);
     }
 

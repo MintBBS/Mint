@@ -26,6 +26,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 
@@ -37,6 +38,11 @@ public class BalanceEnquiryOutput extends AppCompatActivity {
     TextView transactionTypeBalanceEnquiry;
     TextView accountBalanceBalanceEnquiry;
     Button buttonPrintBalanceEnquiry;
+
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
+    TextView currentDate;
 
 
     String mFilePath;
@@ -51,8 +57,14 @@ public class BalanceEnquiryOutput extends AppCompatActivity {
         accountNumberBalanceEnquiry = (TextView) findViewById (R.id.textViewAccountNumber);
         transactionTypeBalanceEnquiry = (TextView) findViewById (R.id.textViewTransactionType);
         accountBalanceBalanceEnquiry = (TextView) findViewById (R.id.textViewAccountBalance);
-
+        currentDate = findViewById (R.id.textViewBalanceEnquiryDate);
         buttonPrintBalanceEnquiry = (Button) findViewById (R.id.buttonPrintBalanceEnquiry);
+
+        calendar = Calendar.getInstance ();
+
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        date = dateFormat.format(calendar.getTime());
+        currentDate.setText(date);
 
         Intent intent = getIntent ();
         String accountNo = intent.getStringExtra ("balanceEnquiryAccountNumber");
@@ -106,6 +118,7 @@ public class BalanceEnquiryOutput extends AppCompatActivity {
             String pdfText = accountNumberBalanceEnquiry.getText().toString();
             String pdfText1 = accountBalanceBalanceEnquiry.getText ().toString ();
             String pdfText2 = transactionTypeBalanceEnquiry.getText ().toString ();
+            String pdfText3 = currentDate.getText ().toString ();
 
             mDoc.add(new Paragraph (heading));
 
@@ -123,6 +136,7 @@ public class BalanceEnquiryOutput extends AppCompatActivity {
             mDoc.add(new Paragraph("Account Number : " + pdfText));
             mDoc.add (new Paragraph ("Available Balance : " + pdfText1));
             mDoc.add (new Paragraph ("Transaction Type : " + pdfText2));
+            mDoc.add (new Paragraph ("Date : " + pdfText3));
             mDoc.close ();
             Toast.makeText(this, "saved" + mFilePath,Toast.LENGTH_LONG).show();
         }

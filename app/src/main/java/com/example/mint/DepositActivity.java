@@ -332,7 +332,7 @@ public class DepositActivity extends MySessionActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void depositMoney(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.103:8080/Mint/")
+                baseUrl ("http://192.168.42.80:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         DepositApi depositApi = retrofit.create (DepositApi.class);

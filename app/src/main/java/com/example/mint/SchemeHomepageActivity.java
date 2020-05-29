@@ -15,7 +15,7 @@ public class SchemeHomepageActivity extends AppCompatActivity {
     }
 
     public void getApyPage(View view){
-        Intent intent = new Intent (getApplicationContext (), ApyData.class);
+        Intent intent = new Intent (getApplicationContext (), Apydata.class);
         startActivity (intent);
     }
 

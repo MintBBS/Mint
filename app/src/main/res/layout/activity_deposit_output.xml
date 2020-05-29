@@ -56,7 +56,7 @@
         app:layout_constraintHorizontal_bias="0.154"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view3"
-        app:layout_constraintVertical_bias="0.072" />
+        app:layout_constraintVertical_bias="0.028" />
 
     <TextView
         android:id="@+id/textViewDepositAccountNumber"
@@ -68,7 +68,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/view3"
-        app:layout_constraintVertical_bias="0.072" />
+        app:layout_constraintVertical_bias="0.028" />
 
     <TextView
         android:id="@+id/textView9"
@@ -170,10 +170,10 @@
         android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textViewDepositAmount"
-        app:layout_constraintVertical_bias="0.053" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <Button
         android:id="@+id/buttonPrintDeposit"
@@ -190,8 +190,8 @@
 
     <View
         android:id="@+id/view3"
-        android:layout_width="350dp"
-        android:layout_height="430dp"
+        android:layout_width="351dp"
+        android:layout_height="416dp"
         android:background="@drawable/border"
         android:paddingTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -213,7 +213,7 @@
         app:layout_constraintHorizontal_bias="0.156"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19"
-        app:layout_constraintVertical_bias="0.116" />
+        app:layout_constraintVertical_bias="0.066" />
 
     <TextView
         android:id="@+id/depositStatus"
@@ -226,7 +226,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/depositStatusTitle"
         app:layout_constraintTop_toBottomOf="@+id/textViewDepositDate"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.066" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

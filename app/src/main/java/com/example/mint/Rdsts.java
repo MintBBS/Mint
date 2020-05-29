@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -36,6 +37,11 @@ public class Rdsts extends AppCompatActivity {
     TextView scheme_id;
     Button printrd;
 
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
+    TextView currentDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +55,15 @@ public class Rdsts extends AppCompatActivity {
         nomineeaadhar = findViewById(R.id.textViewRdNomineeAadhar);
         scheme_id = findViewById(R.id.textViewRdSchemeId);
         printrd= findViewById(R.id.printrd);
+        currentDate = findViewById (R.id.textViewRdDate);
+
+        calendar = Calendar.getInstance ();
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        date = dateFormat.format(calendar.getTime());
+        currentDate.setText(date);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.3:8080/Mint/")
+                .baseUrl("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RdApi rdapi = retrofit.create(RdApi.class);
@@ -124,6 +136,8 @@ public class Rdsts extends AppCompatActivity {
             String pdfText1 = nomineename.getText ().toString ();
             String pdfText2 =nomineeaadhar.getText ().toString ();
             String pdfText3 =scheme_id.getText ().toString ();
+            String pdfText4 = currentDate.getText ().toString ();
+
 
 
             mDoc.addTitle (String.valueOf (new Paragraph (heading)));
@@ -133,6 +147,7 @@ public class Rdsts extends AppCompatActivity {
             mDoc.add(new Paragraph(" Customer Account Number: " + pdfText));
             mDoc.add (new Paragraph ("Nominee Name : " + pdfText1));
             mDoc.add (new Paragraph ("Nominee Aadhar Number : " + pdfText2));
+            mDoc.add (new Paragraph ("Date : " + pdfText4));
             mDoc.close ();
             Toast.makeText(this, "saved" + mFilePath,Toast.LENGTH_LONG).show();
 

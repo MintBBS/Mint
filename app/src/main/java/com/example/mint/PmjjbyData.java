@@ -85,7 +85,7 @@ public class PmjjbyData extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.242:8080/Mint/")
+                .baseUrl("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         pmjjbyApi =retrofit.create(PmjjbyApi.class);

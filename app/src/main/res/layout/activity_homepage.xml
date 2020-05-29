@@ -190,7 +190,7 @@
                     android:layout_height="75dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/app" />
+                    android:src="@drawable/mobileseeding" />
 
                 <TextView
                     android:layout_width="match_parent"

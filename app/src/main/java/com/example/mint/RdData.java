@@ -92,7 +92,7 @@ public class RdData extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.3:8080/Mint/")
+                .baseUrl("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         rdApi =retrofit.create(RdApi.class);

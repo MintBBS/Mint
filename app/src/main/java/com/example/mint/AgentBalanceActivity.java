@@ -181,7 +181,7 @@ public class AgentBalanceActivity extends MySessionActivity {
 
             @Override
             public void onFailure(Call<Aadhar> aCall, Throwable t) {
-                Toast.makeText (getApplicationContext (), "Enter a Valid Aadhar Number", Toast.LENGTH_LONG).show ();
+                Toast.makeText (getApplicationContext (), t.getMessage (), Toast.LENGTH_LONG).show ();
             }
         });
     }

@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -42,6 +43,11 @@ public class RupayBalanceEnquiryOutput extends AppCompatActivity {
     String expireDate;
     String pin;
 
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
+    TextView currentDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -52,6 +58,12 @@ public class RupayBalanceEnquiryOutput extends AppCompatActivity {
         viewBalance=findViewById(R.id.textViewRupayAccountBalance);
         final TextView rupayCardNumber = findViewById (R.id.textViewRupayBalanceEnquiryCardNumber);
         printbutton = findViewById(R.id.buttonRupayBalancePrint);
+        currentDate = findViewById (R.id.textViewRupayBalanceEnquiryDate);
+
+        calendar = Calendar.getInstance ();
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        date = dateFormat.format(calendar.getTime());
+        currentDate.setText(date);
 
         printbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,12 +140,14 @@ public class RupayBalanceEnquiryOutput extends AppCompatActivity {
             String pdfText = viewaccountNo.getText().toString();
             String pdfText1 = viewtransactionType.getText ().toString ();
             String pdfText2 =     viewBalance.getText ().toString ();
+            String pdfText3 = currentDate.getText ().toString ();
 
             mDoc.addTitle (String.valueOf (new Paragraph (heading)));
 
             mDoc.add(new Paragraph(" Account Number: " + pdfText));
             mDoc.add (new Paragraph ("Type : " + pdfText1));
             mDoc.add (new Paragraph ("Available Balance : " + pdfText2));
+            mDoc.add (new Paragraph ("Date : " + pdfText3));
             mDoc.close ();
             Toast.makeText(this, "saved" + mFilePath,Toast.LENGTH_LONG).show();
         }

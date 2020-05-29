@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,17 +37,32 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EodOutput extends AppCompatActivity  {
 
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
+
     private static final int STORAGE_CODE =1000 ;
     TextView eodReport;
     Button print;
+
+    TextView totalTransaction;
+    TextView totalAmount;
+    TextView currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_eod_output);
 
+         totalTransaction = findViewById (R.id.textViewTotalTransaction);
+        totalAmount = findViewById (R.id.textViewTotalAmount);
+        currentDate = findViewById (R.id.textViewCurrentDate);
+
         eodReport = (TextView) findViewById (R.id.textViewEodReport);
         print = (Button) findViewById (R.id.buttonPrintEodReport);
+
+        calendar = Calendar.getInstance();
+
 
         getEodReport ();
 
@@ -121,7 +139,7 @@ public class EodOutput extends AppCompatActivity  {
 
     public void getEodReport(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.37:8080/Mint/")
+                baseUrl ("http://192.168.42.103:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         EodApi eodApi = retrofit.create (EodApi.class);
@@ -139,25 +157,33 @@ public class EodOutput extends AppCompatActivity  {
                 List<AgentTransaction> report = response.body ();
 
                 int count = 0 ;
+               Double amount = 0.0;
 
                 for(AgentTransaction aT: report){
                     String acctNo = aT.getAccountNumber ();
                     count = count + 1;
+                    amount = amount + Double.valueOf (aT.getAmount ());
+
                     eodReport.append ("------------------------------------------------------------" + "\n");
-
-
+                    eodReport.append (String.valueOf (count) + ". ");
                     String value1 = acctNo.substring(1,9);
                     String value2 = value1.replace(value1,"******") + acctNo.substring(6,9);
                     //accountNumberBalanceEnquiry.setText(value2);
-
                     eodReport.append ("Account No : " + value2 + "\n" + "\n" );
-
                     eodReport.append ("RRN : " + aT.getRrn () + "\n" + "\n");
                     eodReport.append ("Amount : " + aT.getAmount () + " INR" + "\n" + "\n");
                     eodReport.append ("Transaction Type : " + aT.getTransactionType () + "\n");
                     eodReport.append ("------------------------------------------------------------" + "\n");
-                    count ++;
                 }
+                Toast.makeText (EodOutput.this,"Total Transaction :" + count , Toast.LENGTH_SHORT).show ();
+
+               // Log.i(TAG, "-----------------------------------------------------" + amount);
+                totalTransaction.setText (String.valueOf (count));
+                totalAmount.setText (String.valueOf (amount));
+
+                dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                date = dateFormat.format(calendar.getTime());
+                currentDate.setText(date);
             }
 
             @Override

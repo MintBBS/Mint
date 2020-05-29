@@ -44,4 +44,8 @@
     <string name="pin">Enter a Valid 4 digit pin number</string>
     <string name="amount">Enter a Valid amount between 100 to 10000</string>
 
+
+    <string name="general"><u>General Details</u></string>
+    <string name="nominee"><u>Nominee Details</u></string>
+
 </resources>
