@@ -36,7 +36,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
     TextView withdrawRrn;
     TextView withdrawAmount;
 
-    String agentId;
+    String agentId ="869145032077219";
     String cardNumber;
     String cardHolderName;
     String cvv;
@@ -64,7 +64,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        agentId = intent.getStringExtra("withdrawAgentId");
+       // agentId = intent.getStringExtra("withdrawAgentId");
         cardNumber = intent.getStringExtra("WithdrawCardNumber");
         cardHolderName=intent.getStringExtra("withdrawCardHolderName");
         cvv=intent.getStringExtra("WithdrawCvv");
@@ -140,7 +140,7 @@ public class RupayWithdrawOutput extends AppCompatActivity {
 
     public void getReport(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.6:8080/Mint/")
+                .baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -163,9 +163,9 @@ public class RupayWithdrawOutput extends AppCompatActivity {
 
                 String AccountNumber = transactions.getAccountNumber();
 
-                String value1 = AccountNumber.substring(1,9);
-                String value2 = value1.replace(value1,"******") + AccountNumber.substring(6,9);
-                withdrawAccountNumber.setText(value2);
+//                String value1 = AccountNumber.substring(1,9);
+//                String value2 = value1.replace(value1,"******") + AccountNumber.substring(6,9);
+//                withdrawAccountNumber.setText(value2);
 
                 withdrawRrn.append(" " + transactions.getRrn());
                 transactionType.append(" " + transactions.getTransactionType());

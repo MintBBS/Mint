@@ -33,7 +33,7 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:maxLength="11"
+        android:maxLength="15"
         android:textColor="#000"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -118,11 +118,11 @@
         android:layout_height="36dp"
         android:paddingTop="10dp"
         android:text="Forgot Password?"
-        android:textColor="#000"
         android:textAlignment="center"
+        android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toEndOf="@+id/checkboxPassword"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
         app:layout_constraintVertical_bias="0.0" />
@@ -131,18 +131,17 @@
         android:id="@+id/textViewTimer"
         android:layout_width="300dp"
         android:layout_height="38dp"
+        android:paddingTop="5dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:paddingTop="5dp"
-        android:textSize="20dp"
         android:textColor="#FF0000"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMainPageFingerprintString"
-        app:layout_constraintVertical_bias="0.252" />
-
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+        app:layout_constraintVertical_bias="0.081" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

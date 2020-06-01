@@ -338,7 +338,7 @@ public class FundstransferActivity extends MySessionActivity {
 
     public void fundTransfer(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.103:8080/Mint/")
+                baseUrl ("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
          FundsTransferApi fundTransferApi = retrofit.create (FundsTransferApi.class);

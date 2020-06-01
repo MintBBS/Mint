@@ -102,7 +102,7 @@ public class AccountOpeningActivity extends AppCompatActivity {
 
         //        retrofit builder
         Retrofit retrofit = new Retrofit.Builder ()
-                .baseUrl ("http://192.168.42.181:8080/Mint/")
+                .baseUrl ("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         accountApi = retrofit.create (AccountApi.class);

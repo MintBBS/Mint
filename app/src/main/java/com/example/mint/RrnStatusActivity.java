@@ -42,7 +42,7 @@ public class RrnStatusActivity extends MySessionActivity {
 
     public void getTransactionByRrn(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.37:8080/Mint/")
+                baseUrl ("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         RrnApi rrnApi = retrofit.create (RrnApi.class);

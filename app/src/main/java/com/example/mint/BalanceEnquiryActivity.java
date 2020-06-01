@@ -317,16 +317,15 @@ public class BalanceEnquiryActivity extends MySessionActivity {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void getBalance(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.103:8080/Mint/")
+                baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         BalanceEnquiryApi balaneEnqiryApi = retrofit.create (BalanceEnquiryApi.class);
 
-        String aadharNo = encrypt (balanceEnquiryAadharNumber.getText ().toString ());
-        final String accountNo = encrypt (balanceEnquiryAccountNumber.getText ().toString ());
+        String aadharNo = balanceEnquiryAadharNumber.getText ().toString ();
+        final String accountNo = balanceEnquiryAccountNumber.getText ().toString ();
 
         Call<Account> aCall = balaneEnqiryApi.getBalaceByAccount (aadharNo, accountNo);
 

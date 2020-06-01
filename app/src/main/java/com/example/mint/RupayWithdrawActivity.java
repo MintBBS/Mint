@@ -19,7 +19,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RupayWithdrawActivity extends AppCompatActivity {
 
     private AwesomeValidation awesomeValidation1;
-    EditText withdrawAgentId;
+    String withdrawAgentId = "869145032077219";
     EditText withdrawPin;
     EditText WithdrawCardNumber;
     EditText WithdrawHolderName;
@@ -34,7 +34,6 @@ public class RupayWithdrawActivity extends AppCompatActivity {
         setContentView (R.layout.activity_rupay_withdraw);
 
         awesomeValidation1 = new AwesomeValidation(ValidationStyle.BASIC);
-        withdrawAgentId = (EditText) findViewById(R.id.editTextRupaywithdrawAgentId);
         WithdrawCardNumber = (EditText) findViewById(R.id.editTextRupayWithdrawCardNo);
         WithdrawHolderName = (EditText) findViewById (R.id.editTextRupayWithdrawCardHolderName);
         WithdrawCvv = (EditText) findViewById (R.id.editTextRupayWithdrawCvv);
@@ -53,9 +52,7 @@ public class RupayWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = getIntent ();
-                String agentId = intent.getStringExtra ("rupayAgentId");
-                withdrawAgentId.setText (agentId);
+
 
                 if(v==buttonWithdraw) {
                     submitform();
@@ -72,7 +69,7 @@ public class RupayWithdrawActivity extends AppCompatActivity {
     }
 
     public void transferFund() {
-        String agentId = withdrawAgentId.getText().toString();
+        //String agentId = withdrawAgentId;
         String cardNumber = WithdrawCardNumber.getText().toString();
         String cardHolderName=WithdrawHolderName.getText().toString();
         String cvv=WithdrawCvv.getText().toString();
@@ -80,15 +77,17 @@ public class RupayWithdrawActivity extends AppCompatActivity {
         String pin = withdrawPin.getText().toString();
         String amount = withdrawAmount.getText().toString();
 
-        Intent intent = new Intent(this, RupayWithdrawOutput.class);
-        intent.putExtra("withdrawAgentId", agentId);
-        intent.putExtra("WithdrawCardNumber", cardNumber);
-        intent.putExtra("withdrawCardHolderName", cardHolderName);
-        intent.putExtra("WithdrawCvv", cvv);
-        intent.putExtra("WithdrawExpireDate", expireDate);
-        intent.putExtra("withdrawPin", pin);
-        intent.putExtra("withdrawAmount", amount);
-        startActivity(intent);
+
+        Intent intent2 = new Intent(this, RupayWithdrawOutput.class);
+
+       // intent2.putExtra("withdrawAgentId", withdrawAgentId);
+        intent2.putExtra("WithdrawCardNumber", cardNumber);
+        intent2.putExtra("withdrawCardHolderName", cardHolderName);
+        intent2.putExtra("WithdrawCvv", cvv);
+        intent2.putExtra("WithdrawExpireDate", expireDate);
+        intent2.putExtra("withdrawPin", pin);
+        intent2.putExtra("withdrawAmount", amount);
+        startActivity(intent2);
 
     }
 

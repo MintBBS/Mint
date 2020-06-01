@@ -94,7 +94,7 @@ public class Apydata extends AppCompatActivity {
         //retrofit builder
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.103:8080/Mint/")
+                .baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apyApi =retrofit.create(ApyApi.class);

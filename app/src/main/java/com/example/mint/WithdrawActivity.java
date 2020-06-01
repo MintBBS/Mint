@@ -267,7 +267,7 @@ public class WithdrawActivity extends MySessionActivity {
 
         public void withdrawMoney () {
             Retrofit retrofit = new Retrofit.Builder ().
-                    baseUrl ("http://192.168.42.80:8080/Mint/")
+                    baseUrl ("http://192.168.42.20:8080/Mint/")
                     .addConverterFactory (GsonConverterFactory.create ())
                     .build ();
             WithdrawApi withdrawApi = retrofit.create (WithdrawApi.class);

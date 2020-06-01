@@ -66,7 +66,7 @@ public class AgentBalanceActivity extends MySessionActivity {
 //            }
 //        });
 
-        getAadharDetails ();
+       // getAadharDetails ();
 
         executor = ContextCompat.getMainExecutor (this);
         biometricPrompt = new BiometricPrompt (AgentBalanceActivity.this,
@@ -121,7 +121,7 @@ public class AgentBalanceActivity extends MySessionActivity {
 
     public void getAgentDetails(){
             Retrofit retrofit = new Retrofit.Builder ().
-                    baseUrl("http://192.168.42.103:8080/Mint/")
+                    baseUrl("http://192.168.42.20:8080/Mint/")
                     .addConverterFactory (GsonConverterFactory.create ())
                     .build ();
             AgentAccountDetailsApi agentAccountDetailsApi = retrofit.create (AgentAccountDetailsApi.class);
@@ -156,7 +156,7 @@ public class AgentBalanceActivity extends MySessionActivity {
 
     public void getAadharDetails(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.37:8080/AadharApi/")
+                baseUrl("http://192.168.42.20:8080/AadharApi/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         AadharApi aadharApi = retrofit.create (AadharApi.class);
@@ -189,7 +189,7 @@ public class AgentBalanceActivity extends MySessionActivity {
 
     public void getAgentBalance(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.103:8080/Mint/")
+                baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         AgentAccountDetailsApi agentAccountDetailsApi = retrofit.create (AgentAccountDetailsApi.class);
@@ -213,7 +213,7 @@ public class AgentBalanceActivity extends MySessionActivity {
                     String balance = details.getBalance ().toString ();
 
                     Intent intent1 = new Intent (getApplicationContext (), AgentBalanceOutput.class);
-                    intent1.putExtra ("name", name);
+                    intent1.putExtra ("name", "Rohan Kumar Das");
                     intent1.putExtra ("accountNo", accountNo);
                     intent1.putExtra ("balance", balance);
                     startActivity (intent1);

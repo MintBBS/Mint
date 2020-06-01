@@ -332,7 +332,7 @@ public class DepositActivity extends MySessionActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void depositMoney(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.80:8080/Mint/")
+                baseUrl ("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         DepositApi depositApi = retrofit.create (DepositApi.class);
@@ -340,8 +340,8 @@ public class DepositActivity extends MySessionActivity implements
         Intent intent1 = getIntent ();
         String agentId = intent1.getStringExtra ("depositAgentId");
 
-        final String aadharNo = encrypt (depositAadharNumber.getText ().toString ());
-        String accountNo = encrypt (depositAccountNumber.getText ().toString ());
+        final String aadharNo = depositAadharNumber.getText ().toString ();
+        String accountNo = depositAccountNumber.getText ().toString ();
         String amount = depositAmount.getText ().toString ();
 
         Call<Transaction> aCall = depositApi.depositMoney (aadharNo, accountNo, amount, agentId);

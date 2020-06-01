@@ -90,7 +90,7 @@ public class RupayBalanceEnquiryOutput extends AppCompatActivity {
         expireDate=intent.getStringExtra("expireDate");
         pin=intent.getStringExtra("pin");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.143:8080/Mint/")
+                .baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -112,7 +112,7 @@ public class RupayBalanceEnquiryOutput extends AppCompatActivity {
 
 
                 //viewaccountNo.append(" " + details.getAccountNumber());
-                viewtransactionType.append(cardNumber);
+                viewtransactionType.append("Rupay Balance Enquiry");
                 String value3 = cardNumber.substring(1,16);
                 String value4 = value3.replace(value3,"************") + cardNumber.substring(12,16);
                 rupayCardNumber.setText(value4);

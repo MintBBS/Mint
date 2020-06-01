@@ -63,7 +63,7 @@ public class Rdsts extends AppCompatActivity {
         currentDate.setText(date);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.103:8080/Mint/")
+                .baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RdApi rdapi = retrofit.create(RdApi.class);
@@ -83,7 +83,7 @@ public class Rdsts extends AppCompatActivity {
                 Rd rd = response.body();
                 {
                     acountno.append(" " + rd.getAccount_number());
-                    nomineename.append(" " + rd.getNominee_name());
+                    nomineename.append(" " + rd.getNominee_name ());
                     nomineeaadhar.append(" " + rd.getNominee_aadhar());
                     scheme_id.append(" " + rd.getScheme_id());
 

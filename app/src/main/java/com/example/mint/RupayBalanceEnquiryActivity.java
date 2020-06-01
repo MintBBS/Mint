@@ -38,6 +38,8 @@ public class RupayBalanceEnquiryActivity extends AppCompatActivity {
         balanceEnquiryCvv = (EditText) findViewById (R.id.editTextBalanceEnquiryCvv);
         balanceEnquiryExpireDate = (EditText) findViewById (R.id.editTextBalanceEnquiryExpireDate);
         balanceEnquiryPin = (EditText) findViewById (R.id.editTextBalanceEnquiryPin);
+
+
         balanceEnquirybutton = (Button) findViewById (R.id.rupayBalaceEnquiryButton);
         awesomeValidation1.addValidation(this,R.id.editTextBalanceEnquiryCardNo, "^[0-9]{16}$", R.string.card_number);
         awesomeValidation1.addValidation(this,R.id.editTextRupayBalanceEnquiryHolderName, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.holder_name);
@@ -65,7 +67,7 @@ public class RupayBalanceEnquiryActivity extends AppCompatActivity {
 
     public void getBalanceByAccount() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.37:8080/MintApi2/")
+                .baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

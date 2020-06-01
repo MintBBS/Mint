@@ -30,18 +30,18 @@
         app:srcCompat="@drawable/transaction_report" />
 
 
-
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="247dp"
-        android:layout_height="59dp"
+        android:layout_width="221dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="16dp"
         android:paddingLeft="5dp"
         android:text="Transaction Report"
         android:textColor="#000000"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.053" />
 
@@ -96,9 +96,10 @@
                 android:id="@+id/textViewTotalAmount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="5dp"
+                android:paddingLeft="2dp"
                 android:paddingTop="10dp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -141,9 +142,8 @@
             android:id="@+id/textViewEodReport"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/border"
-            android:textAlignment="center"
-            android:textColor="#000"
+            android:paddingLeft="10dp"
+            android:textColor="#302626"
             android:textSize="20dp" />
 
     </androidx.core.widget.NestedScrollView>

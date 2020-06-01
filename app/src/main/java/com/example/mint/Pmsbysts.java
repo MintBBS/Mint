@@ -63,7 +63,7 @@ public class Pmsbysts extends AppCompatActivity {
         currentDate.setText(date);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.42.103:8080/Mint/")
+                .baseUrl("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         PmsbyApi pmsbyapi = retrofit.create(PmsbyApi.class);

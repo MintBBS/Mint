@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
@@ -91,17 +92,29 @@ public class EodOutput extends AppCompatActivity  {
         Document mDoc = new Document();
         String mFileName = new SimpleDateFormat ("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(System.currentTimeMillis());
-        String mFilePath = Environment.getExternalStorageDirectory() + "/" + "Mint" + "/" + "AepsWithdraw_" + mFileName + ".pdf";
+        String mFilePath = Environment.getExternalStorageDirectory() + "/" + "Mint" + "/" + "EOD_Report_" + mFileName + ".pdf";
         try {
             PdfWriter.getInstance(mDoc, new FileOutputStream (mFilePath));;
             mDoc.open();
             String heading = "-- Transaction Report --";
             List<AgentTransaction> report = null;
-            String pdfText = eodReport.getText().toString();
+           for(AgentTransaction aT: report){
+               String pdfText = aT.getAccountNumber ();
+               String pdfText2 = aT.getAmount ().toString ();
+               String pdfText3 = aT.getTransactionDate ();
+               String pdfText4 = aT.getTransactionType ();
+               String pdfText5 = aT.getRrn ();
+
+               mDoc.add (new Paragraph ("Account Number : " + pdfText));
+               mDoc.add (new Paragraph ("Amount : " + pdfText2));
+               mDoc.add (new Paragraph ("Transaction Date : " + pdfText3));
+               mDoc.add (new Paragraph ("Transaction Type : " + pdfText4));
+               mDoc.add (new Paragraph ("RRN : " + pdfText5));
+
+           }
+            //String pdfText = eodReport.getText().toString();
             mDoc.add (new Paragraph (heading));
-            for(AgentTransaction at : report){
-               // mDoc.add (at.getAccountNumber ());
-            }
+
 
 
 
@@ -139,7 +152,7 @@ public class EodOutput extends AppCompatActivity  {
 
     public void getEodReport(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl ("http://192.168.42.103:8080/Mint/")
+                baseUrl ("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         EodApi eodApi = retrofit.create (EodApi.class);
@@ -158,22 +171,26 @@ public class EodOutput extends AppCompatActivity  {
 
                 int count = 0 ;
                Double amount = 0.0;
-
+               eodReport.append ("------------------------------------------------------------");
                 for(AgentTransaction aT: report){
                     String acctNo = aT.getAccountNumber ();
                     count = count + 1;
                     amount = amount + Double.valueOf (aT.getAmount ());
 
-                    eodReport.append ("------------------------------------------------------------" + "\n");
-                    eodReport.append (String.valueOf (count) + ". ");
+
+                   // eodReport.append (count + ". ");
                     String value1 = acctNo.substring(1,9);
                     String value2 = value1.replace(value1,"******") + acctNo.substring(6,9);
                     //accountNumberBalanceEnquiry.setText(value2);
-                    eodReport.append ("Account No : " + value2 + "\n" + "\n" );
-                    eodReport.append ("RRN : " + aT.getRrn () + "\n" + "\n");
-                    eodReport.append ("Amount : " + aT.getAmount () + " INR" + "\n" + "\n");
-                    eodReport.append ("Transaction Type : " + aT.getTransactionType () + "\n");
-                    eodReport.append ("------------------------------------------------------------" + "\n");
+                    eodReport.append ("\n");
+                    eodReport.append ("Account No : " + value2 );
+                    eodReport.append ("      " + aT.getAmount () + " INR" + "\n" );
+                    eodReport.append ("RRN : " + aT.getRrn ());
+
+                    eodReport.append ("                   " + aT.getTransactionType () + "\n");
+                    eodReport.append ("-------------------------------------------------------------");
+
+
                 }
                 Toast.makeText (EodOutput.this,"Total Transaction :" + count , Toast.LENGTH_SHORT).show ();
 

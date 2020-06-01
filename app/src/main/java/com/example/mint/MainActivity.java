@@ -98,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
         forgotPassword = (TextView) findViewById (R.id.textViewForgetPassword);
         textViewTimer = (TextView) findViewById (R.id.textViewTimer);
 
-        agentID.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent (getApplicationContext (), HomepageActivity.class);
-                startActivity (i);
-            }
-        });
+//        agentID.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent (getApplicationContext (), HomepageActivity.class);
+//                startActivity (i);
+//            }
+//        });
 
         textViewTimer.setText ("");
 
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
 //login without fingerprint string
     public void validateUserCredential(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl ("http://192.168.42.103:8080/Mint/")
+                .baseUrl ("http://192.168.42.20:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
 
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 if(passWord.equals (message.getPassword ()) && agentId.equals (message.getAgentId ())) {
                     // Toast.makeText (MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show ();
 
-                    Intent intent = new Intent (getApplicationContext (), HomepageActivity.class);
+                    Intent intent = new Intent (getApplicationContext (), OtpActivity.class);
                     intent.putExtra ("agentId", userName);
                     intent.putExtra ("mobileNumber", mobileNumber);
                     startActivity (intent);
