@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 
+import android.graphics.LightingColorFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -28,6 +30,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
     TextView forgotPassword;
     TextView textViewTimer;
 
+    ProgressDialog progressDialog;
+
     int attempt_counter = 3 ;
     public int counter;
 
@@ -87,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView (R.layout.activity_main);
         setTitle ("Mint");
 
-        setContentView (R.layout.activity_main);
 
         agentID = (TextView) findViewById (R.id.textViewImeiNumber);
         password = (EditText) findViewById (R.id.editTextPassword);
@@ -97,14 +101,15 @@ public class MainActivity extends AppCompatActivity {
         showHidePass = (CheckBox) findViewById (R.id.checkboxPassword);
         forgotPassword = (TextView) findViewById (R.id.textViewForgetPassword);
         textViewTimer = (TextView) findViewById (R.id.textViewTimer);
+        final ProgressBar progressBar = findViewById (R.id.progressBarMainActivity);
 
-//        agentID.setOnClickListener (new View.OnClickListener () {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent (getApplicationContext (), HomepageActivity.class);
-//                startActivity (i);
-//            }
-//        });
+        agentID.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (getApplicationContext (), HomepageActivity.class);
+                startActivity (i);
+            }
+        });
 
         textViewTimer.setText ("");
 
@@ -126,8 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 super.onAuthenticationSucceeded (result);
 
                 //Custom logic
-
-
+                //progressBar.setVisibility(View.VISIBLE);
+                progressDialog = new ProgressDialog (MainActivity.this);
+                progressDialog.setMax (100);
+                progressDialog.setIndeterminate (true);
+                progressDialog.setMessage ("Loging you in...");
+                progressDialog.setInverseBackgroundForced (false);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
                     validateUserCredential ();
                     Toast.makeText (getApplicationContext (),
                             "Authentication succeeded!", Toast.LENGTH_SHORT).show ();
@@ -281,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
 //login without fingerprint string
     public void validateUserCredential(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl ("http://192.168.42.20:8080/Mint/")
+                .baseUrl ("http://192.168.42.173:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
 
@@ -312,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
                 if(passWord.equals (message.getPassword ()) && agentId.equals (message.getAgentId ())) {
                     // Toast.makeText (MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show ();
 
-                    Intent intent = new Intent (getApplicationContext (), OtpActivity.class);
+                    Intent intent = new Intent (getApplicationContext (), HomepageActivity.class);
                     intent.putExtra ("agentId", userName);
                     intent.putExtra ("mobileNumber", mobileNumber);
                     startActivity (intent);

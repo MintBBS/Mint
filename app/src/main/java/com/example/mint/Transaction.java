@@ -11,6 +11,12 @@ public class Transaction {
     public Transaction() {
     }
 
+    public  Transaction(String transactionType, Double amount, String transactionDate){
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
+
     public Transaction(String accountNumber, String rrn, String transactionType, Double amount, String transactionDate, String remark) {
         this.accountNumber = accountNumber;
         this.rrn = rrn;

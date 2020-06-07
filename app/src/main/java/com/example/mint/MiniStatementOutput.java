@@ -27,6 +27,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,6 +46,7 @@ public class MiniStatementOutput extends AppCompatActivity {
     TextView date;
     TextView recordType;
     TextView amount;
+    List<Transaction> miniStatement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class MiniStatementOutput extends AppCompatActivity {
         date = (TextView) findViewById (R.id.textViewMiniStatementDate);
         recordType = (TextView) findViewById (R.id.textViewMiniStatementRecordType);
         amount = (TextView) findViewById (R.id.textViewMiniStatementAmount);
+        miniStatement = new ArrayList<Transaction>(5);
 
         Button buttonPrintMiniStatement = findViewById (R.id.buttonPrintMiniStatement);
 
@@ -83,7 +86,7 @@ public class MiniStatementOutput extends AppCompatActivity {
 
     public void getMiniStatement(){
         Retrofit retrofit = new Retrofit.Builder ().
-                baseUrl("http://192.168.42.20:8080/Mint/")
+                baseUrl("http://192.168.42.173:8080/Mint/")
                 .addConverterFactory (GsonConverterFactory.create ())
                 .build ();
         MiniStatementApi miniStatementApi = retrofit.create (MiniStatementApi.class);
@@ -109,7 +112,7 @@ public class MiniStatementOutput extends AppCompatActivity {
                 accountNumber.setText(value2);
 
                 for (Transaction report: transaction){
-
+                    miniStatement.add (new Transaction ( report.getTransactionType (), report.getAmount (), report.getTransactionDate ()));
                     date.append (report.getTransactionDate () + "\n" + "\n" + "\n");
                     recordType.append (report.getTransactionType () + "\n" + "\n" + "\n");
                     amount.append (report.getAmount().toString () + " INR" + "\n" + "\n" + "\n");
@@ -117,7 +120,7 @@ public class MiniStatementOutput extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Transaction>> call, Throwable t) {
-                Toast.makeText (getApplicationContext (), t.getMessage (), Toast.LENGTH_LONG).show ();
+                Toast.makeText (getApplicationContext (), "Please Enter Valid Credentials", Toast.LENGTH_LONG).show ();
             }
         });
     }
@@ -147,41 +150,11 @@ public class MiniStatementOutput extends AppCompatActivity {
             mDoc.add (new Paragraph (heading));
             mDoc.add(new Paragraph("Account Number : " + pdfText));
 
-//            Section subCatPart;
-//
-//            PdfPTable table = new PdfPTable (3);
-//
-//            PdfPCell c1 = new PdfPCell(new Phrase("Date"));
-//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-//            table.addCell(c1);
-//
-//            c1 = new PdfPCell(new Phrase("Transaction Type"));
-//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-//            table.addCell(c1);
-//
-//            c1 = new PdfPCell (new Phrase ("Amount"));
-//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-//            table.addCell(c1);
-//            table.setHeaderRows(1);
-//
-//            table.addCell("1.0");
-//            table.addCell("1.1");
-//            table.addCell("1.2");
-//            table.addCell("2.1");
-//            table.addCell("2.2");
-//            table.addCell("2.3");
+            mDoc.add (new Paragraph ("Date           " + "Record Type           " +"Amount" ));
+            for(int i = 0; i<miniStatement.size (); i++){
+                mDoc.add (new Paragraph (miniStatement.get (i).getTransactionDate ()+ "       " + miniStatement.get (i).getTransactionType ()+ "             " + miniStatement.get (i).getAmount ()));
+            }
 
-//            subCatPart.add(table);
-
-        for(int i = 0; i<5 ; i++) {
-            String pdfText1 = date.getText ().toString ();
-            String pdfText2 = recordType.getText ().toString ();
-            String pdfText3 = amount.getText ().toString ();
-
-            mDoc.add (new Paragraph ("Date : " + pdfText1 + "\n" + "\n" + "\n"));
-            mDoc.add (new Paragraph ("Transaction Type" + pdfText2 + "\n" + "\n" + "\n"));
-            mDoc.add (new Paragraph ("Amount : " + pdfText3 + "\n" + "\n" + "\n"));
-        }
             mDoc.close ();
             Toast.makeText(this, "saved" + mFilePath,Toast.LENGTH_LONG).show();
         }

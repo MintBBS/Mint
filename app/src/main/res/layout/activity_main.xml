@@ -143,5 +143,20 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
         app:layout_constraintVertical_bias="0.081" />
 
+    <ProgressBar
+        android:id="@+id/progressBarMainActivity"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="96dp"
+        android:layout_height="64dp"
+        android:max="100"
+        android:indeterminateTint="@android:color/holo_orange_dark"
+        android:progress="50"
+        android:visibility="gone"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

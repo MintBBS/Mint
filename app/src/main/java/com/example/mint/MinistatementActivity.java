@@ -77,7 +77,7 @@ public class MinistatementActivity extends MySessionActivity {
             @Override
             public boolean isEnabled(int position) {
                 if (position == 0) {
-                    //Disable the third item of spinner.
+                    //Disable the first item of spinner.
                     return false;
                 } else {
                     return true;

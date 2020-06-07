@@ -1,14 +1,34 @@
 package com.example.mint;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class HomepageActivity extends MySessionActivity {
     ImageView aeps;
@@ -22,7 +42,9 @@ public class HomepageActivity extends MySessionActivity {
 
     TextView agentId;
 
-
+    ActionBar actionBar;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    TextView customTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -38,9 +60,24 @@ public class HomepageActivity extends MySessionActivity {
         eodReport =  (ImageView) findViewById (R.id.imageViewEod);
         rrnStatus =  (ImageView) findViewById (R.id.imageViewRrnStatus);
 
+
+        actionBar = getSupportActionBar ();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        actionBar.setIcon (R.drawable.location);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient (this);
+
+        if (ActivityCompat.checkSelfPermission (HomepageActivity.this
+                , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getLocation();
+        }else{
+            ActivityCompat.requestPermissions (HomepageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
+
         Intent intent = getIntent ();
         String agentID = intent.getStringExtra ("agentId");
         agentId.setText (agentID);
+
 
         aeps.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -165,4 +202,28 @@ public class HomepageActivity extends MySessionActivity {
         startActivity (intent);
     }
 
+
+
+
+    private void getLocation() {
+        fusedLocationProviderClient.getLastLocation ().addOnCompleteListener (new OnCompleteListener<Location> () {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult ();
+                if (location != null){
+                    try {
+                        Geocoder geocoder = new Geocoder (HomepageActivity.this
+                                , Locale.getDefault ());
+
+                        List<Address> addresses = geocoder.getFromLocation (
+                                location.getLatitude (), location.getLongitude (), 1
+                        );
+                        actionBar.setTitle (" " + addresses.get (0).getSubAdminArea () + ", " + addresses.get (0).getAdminArea () + ", " + addresses.get (0).getPostalCode () );
+                        } catch (IOException e) {
+                        e.printStackTrace ();
+                    }
+                }
+            }
+        });
+    }
 }
